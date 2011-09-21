@@ -1,0 +1,132 @@
+<tool id="url_blast" name="Run a URL BLAST ">
+	<description>(blastx, blastn, blastp, tblastn, tblastx) against a blast databases at NCBI.</description>
+	<command interpreter="perl">url_blast.pl -seq $fasta_input -blast_type $blast_type -blast_db "$blast_db" -blast_format $blast_format -e_value $e_value -word_size $word_size -score_matrix $score_matrix -hitlist_size $hitlist_size -lc_filter $lc_filter -cbased_stats $cbased_stats -entrez "$entrez" -other_advanced "$other_advanced" -number_seq_query 10 -poll_results 10 -blast_report $blast_report -successful_blasts $successful_blasts -failed_blasts $failed_blasts -prog_work "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"</command>
+	<inputs>
+		<param format="fasta" name="fasta_input" type="data" label="Sequences to be blasted"/>
+		<param name="blast_type" type="select" label="Type of blast">
+			<option value="blastn">blastn</option>
+			<option value="blastx">blastx</option>
+			<option value="blastp">blastp</option>
+			<option value="tblastn">tblastn</option>
+			<option value="tblastx">tblastx</option>
+  		</param>
+  		<param name="blast_db" size="40" value="nr" type="text" label="NCBI database to blast against"/>
+  		<param name="blast_format" type="select" label="Blast output format">
+        	<option value="xml">XML</option>
+			<option value="bls">Pairwise</option>
+			<option value="asn">ASN</option>
+			<option value="html">HTML</option>
+  		</param>
+  		<param name="e_value" size="40" value="0.00001" type="text" label="E cut-off value"/>
+        <param name="word_size" size="10" value="11" type="text" label="Word size. To get default values set blastn=11, megablast=28 and all others=3"/> 
+  		<param name="score_matrix" type="select" label="Score matrix">
+			<option value="BLOSUM62">BLOSUM62</option>
+			<option value="BLOSUM45">BLOSUM45</option>
+			<option value="BLOSUM80">BLOSUM80</option>
+			<option value="PAM30">PAM30</option>
+			<option value="PAM70">PAM70</option>
+  		</param>
+  		<param name="hitlist_size" size="10" value="10" type="text" label="Number of descriptions and alignments to show in output"/>
+  		<param name="lc_filter" type="select" label="Filter low compexity regions in query sequence (DUST with blastn, SEG with others)">
+			<option value="T">True</option>
+			<option value="F">False</option>
+  		</param>
+  		<param name="cbased_stats" type="select" label="Composition-based score adjustments for blastp or tblastn (True = composition based, False = no composition based)">
+			<option value="T">True</option>
+			<option value="F">False</option>
+  		</param>
+  		<param name="entrez" size="40" value="" type="text" label="Specify an entrez query if any. "/>
+  		<param name="other_advanced" size="40" value="" type="text" label="Other advanced options to add to the URL query. "/>
+  		
+	</inputs>
+	<outputs>
+		<data format="txt" name="blast_report" type="data" label="Blast report">
+			<change_format>
+				<when input="blast_format" value="asn" format="asn1"/>
+				<when input="blast_format" value="xml" format="blastxml"/>
+				<when input="blast_format" value="html" format="html"/>
+			</change_format>
+		</data>
+		<data format="fasta" name="successful_blasts" type="data" label="Successful blasts"/>
+		<data format="fasta" name="failed_blasts" type="data" label="Failed blasts"/>
+	</outputs>
+
+	<help>
+	
+Blast nucleotide/protein sequence against available databases at NCBI using the URL blast. Types of blasts: blastx, blastp, blastn, tblastn and tblastx.
+
+**Inputs**
+
+**Sequences to be blasted**
+
+* Nucleotide/Protein sequences to be blasted. 
+
+**NCBI Database to blast against**
+
+* NCBI Database to blast against, e.g. "nr".
+
+**Blast output format**
+
+* The blast output format. XML, Pairwisem ASN and HTML are supported. 
+
+**Type of blast**
+
+* Currently blastn, blastx, blastp, tblastn and tblastx. 
+
+**E cut-off value**
+
+* E cut-off value.
+
+**Word size**
+
+* Word size. Need to specify word size manually. Default values for blastn=11, megablast=28 and all others=3.
+
+**Score matrix**
+
+* BLOSUM62, BLOSUM45, BLOSUM80, PAM30 and PAM70. If no results are returned when selecting a specific scoring matrix make sure that the correct GAP penalties are specified. To check go to: http://www.ncbi.nlm.nih.gov/staff/tao/URLAPI/new/node91.html#sub:Protien-Scoring-Matrices . Add the options in the "Other options to add to URL query" text box.
+
+**Number of descriptions and alignments to show in output**
+
+* Number of descriptions and alignments to show in output.
+
+**Filter low compexity regions**
+
+* Filter low compexity regions in query sequence (DUST with blastn, SEG with others).
+
+**Composition-based score adjustments for blastp or tblastn**
+
+* Composition-based score adjustments for blastp or tblastn (True = composition based, False = no composition based).
+
+**Specify a entrez query**
+
+* Specify a entrez query if any. E.g "Zea mays[Organism] OR Oryza sativa[Organism] OR Arabidopsis thaliana[Organism]".
+
+**Other advanced options to add to the URL query**
+
+* Other advanced options to add to the URL query. E.g. "-G 9 -E 1" to add together with a PAM30 score matrix.
+
+-----
+
+**Outputs**	
+
+**Blast report**
+
+* Concatenated file with blasts results.
+
+**Successful blasts**
+
+* Sequences that were successfully blasted.
+
+**Failed blasts**
+
+* Sequences that failed the blast. These sequences can be blasted again.
+
+----
+ 
+**An example of a URL BLAST**
+
+.. image:: ./galaxy/static/images/url_blast_example.png
+
+
+</help>
+</tool>

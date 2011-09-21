@@ -1,0 +1,30 @@
+<tool id="generate_html_with_images_report" name="Generate an HTML with images report">
+	<description>.</description>
+	<command interpreter="python">generate_html_with_images_report.py -z $zip_archive -p $out_page -o ${out_page.extra_files_path} -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -d</command>
+	<inputs>
+		<param format="zip" name="zip_archive" type="data" label="Zip archive consisting of images" />
+	</inputs>
+	<outputs>
+		<data format="html" name="out_page" type="data" label="HTML page with images"/>
+	</outputs>
+
+	<help>
+	
+Generate an HTML page containing images. The zip archive containing images are provided as input.
+	
+**Inputs**
+
+**Zip archive consisting of images**
+
+* A zip archive consisting of images.
+
+-----
+
+**Outputs**	
+
+**HTML page with images**
+
+* An HTML page containing the images provided in the zip archive.
+
+	</help>
+</tool>

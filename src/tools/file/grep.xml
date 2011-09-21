@@ -1,0 +1,48 @@
+<tool id="grep" name="Select lines in a text file">
+	<description>based on a pattern match in the line.</description>
+	<command interpreter="python">grep.py -i $input_file -o $output_file -r "$pattern" -v $invert</command>
+	<inputs>
+		<param format="txt" name="input_file" type="data" label="Text file"/>
+		<param name="pattern" size="40" type="text" value="^chr([0-9A-Za-z])+" label="Matching pattern" help="Here you can enter text or a regular expression">
+	      <sanitizer>
+            <valid initial="string.printable">
+             <remove value="&apos;"/>
+            </valid>
+           <mapping initial="none">
+            <add source="&apos;" target="__sq__"/>
+           </mapping>
+          </sanitizer>
+       </param>
+   	   <param name="invert" type="select" label="that">
+      			<option value="false">Match</option>
+			<option value="true">DO NOT Match</option>
+		</param>
+	</inputs>
+	<outputs>
+		<data format="txt" name="output_file" type="data" label="Text file with line matches"/>
+	</outputs>
+
+	<help>
+Select lines in a text file based on a pattern match in the line. This tool calls the Linux grep command.
+
+**Inputs**
+
+
+**Text file**
+
+* Text file. 
+
+**Matching pattern**
+
+* The pattern to match a line.
+
+-----
+
+**Outputs**	
+
+**Text file with line matches**
+
+* Returns a text file with matched lines.		
+
+	</help>
+</tool>

@@ -1,0 +1,70 @@
+<tool id="trim" name="Trim fasta sequences">
+	<description>from vector, ecoli, poly(A) and poly(T) sequences.</description>
+	<command interpreter="perl">trim.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -seq $fasta_sequence -qual $quality_scores -phred $phred_file -vector $vector_file -ecoli $ecoli_file -5prime_adapter "$prime5_adapter" -3prime_adapter "$prime3_adapter" -trimseq $trimmed_fasta_sequence -trimqual $trimmed_quality_scores</command>
+	<inputs>
+		<param format="fasta" name="fasta_sequence" type="data" label="FASTA sequences to be trimmed"/>
+		<param format="qualsolid" name="quality_scores" type="data" label="QUAL scores for corresponding FASTA sequences"/>
+		<param format="txt" name="phred_file" type="data" label="Phred PHD file for the corresponding FASTA sequences"/>
+		<param format="fasta" name="vector_file" type="data" label="Cloning vector sequences"/>
+		<param format="fasta" name="ecoli_file" type="data" label="Ecoli sequence"/>
+		<param name="prime5_adapter" size="100" type="text" label="5 prime adapter sequence"/>
+		<param name="prime3_adapter" size="100" type="text" label="3 prime adapter sequence"/>
+		
+	</inputs>
+	<outputs>
+		<data format="fasta" name="trimmed_fasta_sequence" type="data" label="FASTA sequences"/>
+		<data format="qualsolid" name="trimmed_quality_scores" type="data" label="QUAL scores"/>
+	</outputs>
+
+	<help>
+The program cross-match is used to do the trimming. Vector, ecoli, poly(A) and poly(T) sequences are trimmed from the input sequences (quality scores are trimmed accordingly).
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**FASTA sequences to be trimmed**
+
+* Untrimmed sequences.
+
+**QUAL scores for corresponding FASTA sequences**
+
+* Untrimmed quality scores.
+
+**Phred PHD file for the corresponding FASTA sequences**
+
+* Phred generated output file.
+
+**Cloning vector sequences**
+
+* Vector sequences that can cause contamination if not removed.
+
+**Ecoli sequence**
+
+* Sequences need to be screened for segments of Escherichia coli. If found these segments will be removed.
+
+**5 prime adapter sequence**
+
+* 5 prime adapter sequence. E.g AATTCGGCACGAGG (Xerophyta humilis).
+
+**3 prime adapter sequence**
+
+* 3 prime adapter sequence. E.g AAAAAAAAAAAACTCGAG (Xerophyta humilis).
+
+-----
+
+**Outputs**
+
+**FASTA sequences**
+
+* Trimmed sequences.
+
+**QUAL scores**
+
+* Trimmed quality scores.
+
+
+	</help>
+</tool>

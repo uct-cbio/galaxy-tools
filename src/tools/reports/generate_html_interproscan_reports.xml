@@ -1,0 +1,30 @@
+<tool id="generate_interproscan_html_reports" name="Generate HTML InterProScan reports">
+	<description>for a specific job.</description>
+	<command interpreter="python">generate_html_interproscan_reports.py -j $job_id -p $job_html_page -o ${job_html_page.extra_files_path} -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -d</command>
+	<inputs>
+		<param name="job_id" size="40" value="" type="text" label="InterProScan job id"/>
+	</inputs>
+	<outputs>
+		<data format="html" name="job_html_page" type="data" label="InterProScan job HTML reports"/>
+	</outputs>
+
+	<help>
+	
+Generate InterProScan HTML reports for a specific job. To get the job id of an InterProScan run, view the job id output from a completed InterProScan run in the history panel. 
+	
+**Inputs**
+
+**InterProScan job id**
+
+* The InterProScan job id of a successfully completed InterProScan run.
+
+-----
+
+**Outputs**	
+
+**InterProScan job HTML reports**
+
+* An HTML page with links to InterProScan reports for a specific InterProScan run.
+
+	</help>
+</tool>

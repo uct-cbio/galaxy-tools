@@ -1,0 +1,90 @@
+<tool id="ncbi_entrez_download_fasta" name="Download FASTA sequences">
+	<description>from NCBI.</description>
+	<command interpreter="python">
+			ncbi_entrez_download_fasta.py -m "$email" -d "$database" 
+			#if $download_type.download_type_select == "1":
+				-e "$download_type.entrez_query"
+			#end if
+			#if $download_type.download_type_select == "2":
+				-c -w "$download_type.web_env" -q "$download_type.query_key" -s $download_type.start_pos -n $download_type.nr_seq_query
+			#end if
+			-f $seq -i $info
+	</command>
+	
+	<inputs>
+		<param name="email" size="40" value="" type="text" label="E-mail address"/>
+		<param name="database" size="40" value="" type="text" label="Database"/>
+  		<conditional name="download_type">
+  			<param name="download_type_select" type="select" label="Start a new download or continue a previous download">
+  				<option value="1" selected="true">Start new</option>
+                <option value="2">Continue previous</option>
+  			</param>
+  			<when value="1">
+  				<param name="entrez_query" size="60" value="" type="text" label="Entrez query"/>
+  			</when>
+        	<when value="2">
+   				<param name="web_env" size="60" value="" type="text" label="web_env string of the previous query"/>
+   				<param name="query_key" size="60" value="" type="text" label="query_key string of the previous query"/>
+   				<param name="start_pos" size="60" value="" type="text" label="Position to start downloading from"/>
+   				<param name="nr_seq_query" size="60" value="" type="text" label="Number of sequences in previous query"/>
+        	</when>
+  		</conditional>
+	</inputs>
+	
+	<outputs>
+		<data format="fasta" name="seq" type="data" label="FASTA sequences"/>
+		<data format="txt" name="info" type="data" label="Download info"/>
+	</outputs>
+
+	<help>
+Download FASTA sequences from NCBI providing an Entrez query. For queries with many results an alternative download approach should be considered. Such as getting a list of GI numbers using the
+"Download GI list from NCBI". Sequences on the list can be extracted from e.g. the complete nt FASTA database stored locally. 
+
+**Inputs**
+
+**E-mail address**
+
+* Specify an e-mail address this is requested from Entrez. 
+
+**Database**
+
+* The database to fetch the sequences from e.g nucleotide. See http://www.ncbi.nlm.nih.gov/entrez/query/static/eutils_help.html.
+
+**Start a new download or continue a previous download**
+
+* Start a new download or continue a previously failed download.
+
+**Entrez query**
+
+* Provide an Entrez query, e.g. "Cypripedioideae[Orgn] AND matK[Gene]".
+
+**wev_env string**
+
+* Provide the web_env string of a previous query/download, e.g. "NCID_1_38065753_130.14.18.52_9001_1300878409_78339627".
+
+**query_key string**
+
+* Provide the query_key string of a previous query/download, e.g. 1.
+
+**Start position**
+
+* Position to start downloading from.
+
+**Number of sequences**
+
+* Number of sequences in previous query.
+
+-----
+
+**Outputs**	
+
+**FASTA sequences**
+
+* FASTA sequences retrieved from NCBI.
+
+**Download info**
+
+* Contains information regarding the query/download such as the web_env string, query_key and number of sequences in the query.
+
+</help>
+</tool>

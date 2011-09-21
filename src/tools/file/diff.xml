@@ -1,0 +1,39 @@
+<tool id="diff" name="Compare two files">
+	<description>line by line.</description>
+	<command interpreter="perl">diff.pl -file_1 $file_1 -file_2 $file_2 -diff_file $diff_file</command>
+	<inputs>
+                <param format="txt" name="file_1" type="data" label="File 1"/>
+                <param format="txt" name="file_2" type="data" label="File 2"/>
+
+	</inputs>
+	<outputs>
+		<data format="txt" name="diff_file" type="data" label="Difference file"/>
+	</outputs>
+
+	<help>
+Compare two files line by line. Calls the linux diff command.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**File 1**
+
+* File 1. 
+
+**File 2**
+
+* File 2.
+
+-----
+
+**Outputs**	
+
+**Difference file**
+
+* File showing differences between two files. If there is no difference an empty file is returned.	
+		
+	</help>
+</tool>

@@ -1,0 +1,21 @@
+dependencies
+ - blast
+ - EMBOSS-6.0.1
+ - phred
+ - phrap
+ - decoder
+ - estscan
+ - wcd
+ - cap3
+ - interproscan
+ - blast2go (b2g4pipe)
+ - included
+ 	- revcomp
+ 	- clobb2.pl
+ 	- contigimage.pl
+ 	- split_interproscan_blast2go.pl
+  - python modules
+  	- biopython 1.5
+  - perl modules
+  	- BioPerl 1.6
+  - interproscan converter.pl

@@ -1,0 +1,7 @@
+<!--  Add following section to main datatypes_conf.xml in galaxy root dir
+ -->
+
+    <!-- UCT CBIO Generic binary file and zip archive support-->
+    <datatype extension="zip" type="galaxy.datatypes.uct_cbio:GenZip" mimetype="application/zip" display_in_upload="true"/>
+	<datatype extension="dat" type="galaxy.datatypes.uct_cbio:GenBin" mimetype="application/octet-stream" display_in_upload="true"/>
+	<!-- -->

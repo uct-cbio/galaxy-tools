@@ -1,0 +1,40 @@
+<tool id="dbest" name="Prepare and submit est info">
+	<description>to dbEST.</description>
+	<command interpreter="perl">dbest.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -est $est_file -dbest $dbest_file</command>
+	<inputs>
+		<param format="fasta" name="est_file" type="data" label="ESTs to submit" />
+	</inputs>
+	<outputs>
+		<data format="txt" name="dbest_file" type="data" label="dbEST file" />
+	</outputs>
+
+	<help>
+	
+.. class:: warningmark
+
+**This tool is not finished yet**, submission info is still required.
+
+-----
+
+EST info is prepared for dbEST submission. Submit option must be specified.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+**ESTs to submit**
+
+Single FASTA file with the raw nucleotide sequences. (Extension '.fsa').
+
+-----
+
+**Outputs**
+
+**FASTA sequences**
+
+Single dbEST submission file containing info of the input ESTs.
+
+   
+	</help>
+</tool>

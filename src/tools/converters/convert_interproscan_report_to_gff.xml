@@ -1,0 +1,30 @@
+<tool id="convert_interproscan_report_to_gff" name="Convert an InterProScan report">
+	<description>to GFF3 format.</description>
+	<command interpreter="python">convert_interproscan_report_to_gff.py -j $job_id -o $gff_out</command>
+	<inputs>
+		<param name="job_id" size="40" value="" type="text" label="InterProScan job id"/>
+	</inputs>
+	<outputs>
+		<data format="gff3" name="gff_out" type="data" label="GFF3 File"/>
+	</outputs>
+
+	<help>
+	
+Generate a GFF3 file for a specific InterProScan job. To get the job id of an InterProScan run, view the job id output from a completed InterProScan run in the history panel. 
+	
+**Inputs**
+
+**InterProScan job id**
+
+* The InterProScan job id of a successfully completed InterProScan run.
+
+-----
+
+**Outputs**	
+
+**GFF3 File**
+
+* A GFF3 file for a specific InterProScan job.
+
+	</help>
+</tool>

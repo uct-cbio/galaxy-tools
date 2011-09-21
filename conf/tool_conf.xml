@@ -1,0 +1,47 @@
+<!--  Add following section to main tool_conf.xml in galaxy root dir
+ -->
+    <section name="UCT CBIO Tools" id="uct_cbio">
+    <label text="Get data" id="uct_cbio_get_data"/>
+      <tool file="uct_cbio/upload_uct_cbio.xml"/>
+      <tool file="uct_cbio/biomart_uct_cbio.xml"/>   
+    <label text="Sequence processing" id="uct_cbio_sequence_processing" />
+      <tool file="uct_cbio/basecall.xml"/>
+      <tool file="uct_cbio/trim.xml"/>
+      <tool file="uct_cbio/cluster.xml"/>
+      <tool file="uct_cbio/assemble.xml"/>
+      <tool file="uct_cbio/predict_peptide_seq.xml"/>      
+    <label text="BLAST utilities" id="uct_cbio_blast_utils" />
+      <tool file="uct_cbio/blast.xml"/>
+      <tool file="uct_cbio/url_blast.xml"/>
+    <label text="NCBI utilities" id="uct_cbio_ncbi_utils" />
+       <tool file="uct_cbio/ncbi_entrez_download_fasta.xml"/>
+       <tool file="uct_cbio/ncbi_entrez_download_gi_list.xml"/>
+    <label text="Annotation" id="uct_cbio_annotation" /> 
+      <tool file="uct_cbio/interproscan.xml"/>
+      <tool file="uct_cbio/b2g4pipe.xml"/>
+    <label text="FASTA utilities" id="uct_cbio_fasta_utils" />
+      <tool file="uct_cbio/grep_fasta.xml"/>
+      <tool file="uct_cbio/concat_fasta_files.xml"/>
+      <tool file="uct_cbio/reverse_complement_sequences.xml"/>
+      <tool file="uct_cbio/select_fasta_from_list.xml"/>
+    <label text="QUAL SCORE utilities" id="uct_cbio_qual_score_utils" />
+      <tool file="uct_cbio/grep_qual.xml"/>      
+      <tool file="uct_cbio/concat_qual_files.xml"/>
+      <tool file="uct_cbio/reverse_quality_scores.xml"/>
+    <label text="File utilities" id="uct_cbio_file_utils" />
+      <tool file="uct_cbio/diff.xml"/>
+      <tool file="uct_cbio/grep.xml"/>
+      <tool file="uct_cbio/sed.xml"/>
+    <label text="File converters" id="uct_cbio_converters_utils" />
+      <tool file="uct_cbio/convert_gff_fasta_to_gb.xml"/>
+      <tool file="uct_cbio/convert_blast_report.xml"/>
+      <tool file="uct_cbio/convert_interproscan_report_to_gff.xml"/>
+    <label text="Reports" id="uct_cbio_reports_utils" />
+      <tool file="uct_cbio/generate_html_with_images_report.xml"/>
+      <tool file="uct_cbio/generate_html_fasta_reports.xml"/>
+      <tool file="uct_cbio/generate_html_blast_reports.xml"/>
+      <tool file="uct_cbio/generate_html_interproscan_reports.xml"/>
+    <label text="Other" id="uct_cbio_other" /> 
+      <tool file="uct_cbio/split_interproscan_results.xml"/>
+      <tool file="uct_cbio/dbest.xml"/>
+   </section>

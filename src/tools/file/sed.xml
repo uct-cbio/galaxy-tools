@@ -1,0 +1,44 @@
+<tool id="sed" name="Substitute patterns in a line">
+	<description>with a given string.</description>
+	<command interpreter="python">sed.py -i $input_file -o $output_file -s "$pattern"</command>
+	<inputs>
+		<param format="txt" name="input_file" type="data" label="Text file"/>
+		<param name="pattern" size="40" type="text" value="s/ .*$/Replace/g" label="Substitute pattern" help="Here you can enter the substitute pattern">
+	      <sanitizer>
+            <valid initial="string.printable">
+             <remove value="&apos;"/>
+            </valid>
+           <mapping initial="none">
+            <add source="&apos;" target="__sq__"/>
+           </mapping>
+          </sanitizer>
+       </param>
+	</inputs>
+	<outputs>
+		<data format="txt" name="output_file" type="data" label="Text file substituted strings"/>
+	</outputs>
+
+	<help>
+Substitute patterns in a line with a given string. This tool calls the Linux sed command.
+
+**Inputs**
+
+
+**Text file**
+
+* Text file. 
+
+**Substitute pattern**
+
+* The substitute pattern. Need to follow the Linux sed command syntax. Check "man sed".
+
+-----
+
+**Outputs**	
+
+**Text file with substituted strings**
+
+* Returns a text file with substituted strings if there were any.		
+
+	</help>
+</tool>

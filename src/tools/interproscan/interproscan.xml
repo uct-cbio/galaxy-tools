@@ -1,0 +1,50 @@
+<tool id="interproscan" name="Run InterProScan">
+	<description>.</description>
+	<command interpreter="python">interproscan.py -i $seq_file -t $seq_type -j $job_id_file -o $interproscan_xml -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"</command>
+	<inputs>
+		<param format="fasta" name="seq_file" type="data" label="FASTA sequences"/>
+		 <param name="seq_type" type="select" label="Sequence type">
+			<option value="p">protein</option>
+			<option value="n">DNA/RNA</option>
+  		</param>
+	</inputs>
+	<outputs>
+		<data format="txt" name="interproscan_xml" type="data" label="InterProScan XML result"/>
+		<data format="txt" name="job_id_file" type="data" label="InterProScan job id"/>
+	</outputs>
+
+	<help>
+.. class:: warningmark
+
+**Running InterProScan is computational expensive.** Galaxy users are sharing a limited amount of resources. When running this tool be considerate and keep the number of sequences and jobs a minimum. 
+
+The idea is to later migrate this Galaxy installation to a cluster. Hopefully this will resolve some of the resource problems. 	
+
+-----
+
+Run InterProScan on local server. Jobs are devided into chunks of 200 sequences. Jobs are launched alternatively (chunk after chunk).
+
+**Inputs**
+
+**FASTA sequences**
+
+* FASTA sequences to run through InterProScan.
+
+**Sequence type**
+
+* DNA/RNA or protein.
+
+-----
+
+**Outputs**
+
+**InterProScan XML results**
+
+* InterProScan XML results file.
+
+**InterProScan job id**
+
+* The InterProScan job id for this run.
+
+	</help>
+</tool>

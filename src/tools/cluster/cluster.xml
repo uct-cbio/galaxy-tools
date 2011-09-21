@@ -1,0 +1,76 @@
+<tool id="cluster" name="Cluster sequences">
+	<description>.</description>
+	<command interpreter="python">cluster.py -s $seq  -c $cluster_seq
+		#if $quality_scores.quality_scores_select == "1":
+			-S $qual -C $cluster_qual
+		#end if
+		<!-- -i $cluster_id -r $report_a -p $algorithm -w $cluster_seq.files_path</command> -->
+		 -i $cluster_id -r $report_a -p $algorithm -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"</command>
+	<inputs>
+		<param format="fasta" name="seq" type="data" label="FASTA sequences"/>
+		<conditional name="quality_scores">
+  			<param name="quality_scores_select" type="select" label="Include quality scores?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+				<param format="qualsolid" name="qual" type="data" label="QUAL scores"/>
+        	</when>
+  		</conditional>
+        <param name="cluster_id" size="40" type="text" label="Cluster ID"/>
+        <param name="algorithm" type="select" label="Cluster algorithm">
+			<option value="wcd">wcd</option>
+  		</param>
+	</inputs>
+	<outputs>
+		<data format="zip" name="cluster_seq" type="data" label="Clustered FASTA sequences (.zip)"/>
+		<data format="zip" name="cluster_qual" type="data" label="Clustered QUAL scores (.zip)"/>
+		<data format="txt" name="report_a" type="data" label="Cluster report" />
+	</outputs>
+
+	<help>
+Cluster a set of nucleotide sequences.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**FASTA sequences**
+
+* The sequences to be clustered. 
+
+**QUAL scores**
+
+* If quality scores are given each corresponding output cluster will also have a set of quality scores.
+
+**Cluster ID**
+
+* The cluster id e.g. XHC.
+
+**Cluster algorithm**
+
+* The cluster algorithm (currently wcd only).
+
+-----
+
+**Outputs**	
+
+**Clustered FASTA sequences (.zip)**
+
+* A zip archive consisting of clusters and their corresponding sequences.
+
+**Clustered QUAL scores (.zip)**
+
+* A zip archive consisting of clusters and their corresponding quality scores.
+
+**Cluster report**
+
+* A list of all clusters and their corresponding sequences. First column presents the cluster id and the rest of the columns contain the sequences in the cluster.
+
+
+	</help>
+</tool>

@@ -1,0 +1,56 @@
+<tool id="select_fasta_from_list" name="Select FASTA sequences">
+	<description>from a list.</description>
+	<command interpreter="python">
+				select_fasta_from_list.py -i $input_file -l $list_file
+				#if $gi_match.gi_match_select == "1":
+					-g 
+				#end if
+				-o $output_file
+	</command>
+	<inputs>
+		<param format="fasta" name="input_file" type="data" label="FASTA sequences"/>
+		<param format="tabular" name="list_file" type="data" label="List of sequence names or GI numbers"/>
+		<conditional name="gi_match">
+  			<param name="gi_match_select" type="select" label="Select sequences based on exact match in header or a GI number match">
+  				<option value="0" selected="true">Exact match</option>
+                <option value="1">GI number match</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+        	</when>
+  		</conditional>
+	</inputs>
+	<outputs>
+		<data format="fasta" name="output_file" type="data" label="Selected FASTA sequences"/>
+	</outputs>
+
+	<help>
+Select FASTA sequences from a list. The name in the list should be an exact match to the FASTA header. Except when the gi_match option is chosen. With this option
+sequences with a GI number match in the list will be selected.
+
+**Inputs**
+
+
+**FASTA sequences**
+
+* FASTA sequences. 
+
+**List of sequence names or GI numbers**
+
+* A list of sequences names or GI numbers.
+
+**Select sequences based on exact match in header or a GI number match**
+
+* Select sequences based on exact match in header or a GI number match.
+
+-----
+
+**Outputs**	
+
+**Selected FASTA sequences**
+
+* Sequences that matched the list.		
+
+	</help>
+</tool>

@@ -1,0 +1,30 @@
+<tool id="split_interproscan_results" name="Split a combined InterProScan">
+	<description> XML results file into individual XML files.</description>
+	<command interpreter="python">split_interproscan_results.py -i $interproscan_combined_xml -o $interproscan_single_xml -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"</command>
+	
+	<inputs>
+		<param format="txt" name="interproscan_combined_xml" type="data" label="Combined InterProScan XML results"/>
+	</inputs>
+	<outputs>
+		<data format="zip" name="interproscan_single_xml" type="data" label="Individual InterProScan XML results (.zip)"/>/>
+	</outputs>
+
+	<help>
+Split a combined InterProScan XML results file into individual XML results. These files can then be imported into the GUI version of Blast2GO.
+
+**Inputs**
+
+**Combined InterProScan XML results**
+
+* Combined InterProscan XML results.
+
+-----
+
+**Outputs**
+
+**Individual InterProScan XML results (.zip)**
+
+* Zip archive with individual InterProScan XML results.
+
+	</help>
+</tool>

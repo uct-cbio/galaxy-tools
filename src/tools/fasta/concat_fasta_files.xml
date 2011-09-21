@@ -1,0 +1,39 @@
+<tool id="concat_fasta_files" name="Concatenate two fasta files">
+	<description>.</description>
+	<command interpreter="perl">concat_files.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -file_1 $file_1 -file_2 $file_2 -concat_file $concat_file</command>
+	<inputs>
+                <param format="fasta" name="file_1" type="data" label="FASTA sequences 1"/>
+                <param format="fasta" name="file_2" type="data" label="FASTA sequences 2"/>
+
+	</inputs>
+	<outputs>
+		<data format="fasta" name="concat_file" type="data" label="Concatenated FASTA sequences"/>
+	</outputs>
+
+	<help>
+Concatenate two fasta files.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**FASTA sequences 1**
+
+* 1st file with fasta sequences. 
+
+**FASTA sequences 2**
+
+* 2nd file with fasta sequences.
+
+-----
+
+**Outputs**	
+
+**Concatenated FASTA sequences**
+
+* Concatenated fasta sequences.	
+		
+	</help>
+</tool>

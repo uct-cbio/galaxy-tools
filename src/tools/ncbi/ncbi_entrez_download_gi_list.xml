@@ -1,0 +1,43 @@
+<tool id="ncbi_entrez_download_gi_list" name="Download a GI list">
+	<description>from NCBI.</description>
+	<command interpreter="python">
+			ncbi_entrez_download_gi_list.py -m "$email" -d "$database" -e "$entrez_query" -s $seq_ids
+	</command>
+	
+	<inputs>
+		<param name="email" size="40" value="" type="text" label="E-mail address"/>
+		<param name="database" size="40" value="" type="text" label="Database"/>
+  		<param name="entrez_query" size="60" value="" type="text" label="Entrez query"/>
+	</inputs>
+	
+	<outputs>
+		<data format="tabular" name="seq_ids" type="data" label="GI list"/>
+	</outputs>
+
+	<help>
+Download a list of GI numbers from NCBI providing an Entrez query. 
+
+**Inputs**
+
+**E-mail address**
+
+* Specify an e-mail address this is requested from Entrez. 
+
+**Database**
+
+* The database to fetch the sequences from e.g nucleotide. See http://www.ncbi.nlm.nih.gov/entrez/query/static/eutils_help.html.
+
+**Entrez query**
+
+* Provide an Entrez query, e.g. "Cypripedioideae[Orgn] AND matK[Gene]".
+
+-----
+
+**Outputs**	
+
+**FASTA sequences**
+
+* FASTA sequences retrieved from NCBI.
+
+</help>
+</tool>

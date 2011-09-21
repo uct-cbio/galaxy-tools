@@ -1,0 +1,43 @@
+<tool id="reciprocal_blast" name="Run a reciprocal BLAST ">
+	<description>.</description>
+	<command interpreter="perl">reciprocal_blast.pl -seq_type $seq_type -xf $seq_file_x -yf $seq_file_y -rbh $rbh_file -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history/reciprocal_blast"</command>
+	<inputs>
+		<param format="fasta" name="seq_file_x" type="data" label="Sequence file 1"/>
+		<param format="fasta" name="seq_file_y" type="data" label="Sequence file 2"/>
+		<param name="seq_type" type="select" label="Sequence type">
+			<option value="n">nucleotide</option>
+			<option value="p">protein</option>
+  		</param>
+	</inputs>
+	<outputs>
+		<data format="txt" name="rbh_file" type="data" label="List of reciprocal blast hits"/>
+	</outputs>
+
+	<help>
+
+This tool calculates reciprocal blast hits on 2 sets of sequences. The blast e-value is set 0.01.
+
+**Inputs**
+
+**Sequence file 1**
+
+* Sequences file 1.
+
+**Sequence file 2**
+
+* Sequence file 2. 
+
+**Sequence type**
+
+* The type of sequences (nucleotide or protein). 
+
+-----
+
+**Outputs**	
+
+**List of reciprocal blast hits**
+
+* A list of reciprocal blast hits.
+
+</help>
+</tool>

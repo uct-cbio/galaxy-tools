@@ -1,0 +1,30 @@
+<tool id="generate_html_fasta_reports" name="Generate HTML FASTA reports">
+	<description>from a file with FASTA sequences.</description>
+	<command interpreter="python">generate_html_fasta_reports.py -f $fasta_file -p $html_fasta_report -o ${html_fasta_report.extra_files_path}</command>
+	<inputs>
+		<param format="fasta" name="fasta_file" type="data" label="FASTA file" />
+	</inputs>
+	<outputs>
+		<data format="html" name="html_fasta_report" type="data" label="HTML FASTA reports"/>
+	</outputs>
+
+	<help>
+	
+Generate an HTML page with links to FASTA sequences.
+	
+**Inputs**
+
+**FASTA file**
+
+* File with input sequences in FASTA format
+
+-----
+
+**Outputs**	
+
+**HTML FASTA reports**
+
+* An HTML page with links to FASTA sequences.
+
+	</help>
+</tool>

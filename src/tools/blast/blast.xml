@@ -1,0 +1,123 @@
+<tool id="blast" name="Run a local BLAST ">
+	<description>(blastx, blastn, blastp).</description>
+	<command interpreter="perl">blast.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -seq $fasta_input -blast_type $blast_type -blast_db "$blast_db" -top_nr_hits $top_nr_hits -e_value $e_score -word_size $word_size -score_matrix $score_matrix -blast_format $blast_format -nr_workers 5 -blast_report $blast_report -failed_blast $failed -add_blast_options "$add_blast_options"</command>
+	<inputs>
+		<param format="fasta" name="fasta_input" type="data" label="Sequences to be blasted"/>
+		<param name="blast_type" type="select" label="Type of blast">
+			<option value="blastn">blastn</option>
+			<option value="blastx">blastx</option>
+			<option value="blastp">blastp</option>
+  		</param>
+  		<param name="blast_db" type="select" label="Database to blast against" multiple="true">
+			<option value="nt">nt</option>
+			<option value="nr">nr</option>
+			<option value="uniprot_sprot">uniprot_sprot</option>
+			<option value="uniprot_trembl">uniprot_trembl</option>
+			<option value="ensembl_chimp">ensembl_chimp</option>
+			<option value="ensembl_human">ensembl_human</option>
+			<option value="ensembl_macaque">ensembl_macaque</option>
+			<option value="ensembl_gorilla">ensembl_gorilla</option>
+			<option value="uniprot_maize">uniprot_maize</option>
+  		</param>
+        <param name="top_nr_hits" size="10" value="30" type="text" label="Best hits"/>
+        <param name="e_score" size="40" value="0.00001" type="text" label="E cut-off value"/>
+        
+         <param name="word_size" size="10" value="-1" type="text" label="Word size, default if -1 (blastn 11, megablast 28, all others 3)"/>
+  
+  		<param name="score_matrix" type="select" label="Score matrix">
+			<option value="BLOSUM62">BLOSUM62</option>
+			<option value="BLOSUM45">BLOSUM45</option>
+			<option value="BLOSUM80">BLOSUM80</option>
+			<option value="PAM30">PAM30</option>
+			<option value="PAM70">PAM70</option>
+  		</param>
+  		
+  		<param name="add_blast_options" size="40" value="" type="text" label="Additional BLAST options e.g. '-I T'"/>
+  		
+        <param name="blast_format" type="select" label="Output format">
+        	<option value="xml">XML</option>
+			<option value="bls">Pairwise</option>
+			<option value="asn">ASN</option>
+			<option value="tab">Tabular with comment lines</option>
+  		</param>
+        
+	</inputs>
+	<outputs>
+		<data format="txt" name="blast_report" type="data" label="Blast report">
+			<change_format>
+				<when input="blast_format" value="asn" format="asn1"/>
+				<when input="blast_format" value="xml" format="blastxml"/>
+				<when input="blast_format" value="tab" format="tabular"/>
+			</change_format>
+		</data>
+		<data format="txt" name="failed" type="data" label="Failed blasts"/>
+	</outputs>
+
+	<help>
+	
+.. class:: warningmark
+
+**Running BLAST is computational expensive.** Galaxy users are sharing a limited amount of resources. When running this tool be considerate and keep the number of sequences and jobs a minimum. 
+
+The idea is to later migrate this Galaxy installation to a cluster. Hopefully this will resolve some of the resource problems. 
+
+-----
+	
+Blast nucleotide/protein sequence against available databases. Types of blasts: blastx, blastp and blastn.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**Sequences to be blasted**
+
+* The sequences to be blasted. 
+
+**Database to blast against**
+
+* Currently nr is the only database available. 
+
+**Type of blast**
+
+* Currently blastn, blastx and blastp are supported. 
+
+**Best hits**
+
+* Get only the results of the top X best hits. 
+
+**E cut-off value**
+
+* E cut-off value.
+
+**Word size**
+
+* Word size.
+
+**Score matrix**
+
+* Score matrix.
+
+**Additional BLAST options**
+
+* Consult BLAST documentation for additional options.
+
+**Output format**
+
+* Blast default output (pairwise), asn (asn), xml (xml) or tabular with comments (tab).
+
+-----
+
+**Outputs**	
+
+**Blast report**
+
+* File with blasts results.
+
+**Failed blasts**
+
+* Sequences that failed to blast.
+
+</help>
+</tool>

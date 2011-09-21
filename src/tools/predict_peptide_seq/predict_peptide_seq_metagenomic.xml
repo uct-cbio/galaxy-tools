@@ -1,0 +1,59 @@
+<tool id="predict_peptide_seq_metagenomic" name="Predict peptide sequences from metagenomic data">
+	<description>.</description>
+	<command interpreter="python">
+			predict_peptide_seq_metagenomic.py -s $seq_file -p $predict_algorithm -t $predict_type -o $predict_seq_file -a $predict_summary_file -g $predict_gff_file -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"
+	</command>
+	
+	<inputs>
+		<param format="fasta" name="seq_file" type="data" label="Nucleotide FASTA sequences"/>
+		<param name="predict_algorithm" type="select" label="Algorithm/software for predicting the peptide sequences (currently metagenemark only)?">
+			<option value="metagenemark">metagenemark</option>
+  		</param>
+  		<param name="predict_type" type="select" label="Predicted sequence output type?">
+			<option value="p">protein</option>
+			<option value="n">nucleotide</option>
+  		</param>
+	</inputs>
+	
+	<outputs>
+		<data format="fasta" name="predict_seq_file" type="data" label="Predicted ${predict_type.value_label} FASTA sequences"/>
+		<data format="txt" name="predict_summary_file" type="data" label="List of assembly names and member genes"/>
+		<data format="gff" name="predict_gff_file" type="data" label="GFF file of predicted genes"/>
+	</outputs>
+
+	<help>
+	
+Predict a peptide sequence from metagenomic nucleotide sequence.
+
+**Inputs**
+
+**Nucleotide FASTA sequences**
+
+* The nucleotide sequence. 
+
+**Algorithm/software for predicting the peptide sequences**
+
+* Algorithm/software for predicting the peptide sequences (currently metagenemark only).
+
+**Predicted sequence output type**
+
+* The predicted output sequences type. Nucleotide or protein.
+
+-----
+
+**Outputs**	
+
+**Predicted FASTA sequences**
+
+* The predicted peptide/nucleotide sequence.
+
+**List of assembly names and member genes**
+
+* A List of assembly names and their member genes.
+
+**GFF file of predicted genes**
+
+* If specified a GFF file of the predicted genes will be generated.
+
+</help>
+</tool>

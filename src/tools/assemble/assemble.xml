@@ -1,0 +1,127 @@
+<tool id="assemble" name="Assemble sequences">
+	<description>.</description>
+	<command interpreter="python">assemble.py -c $cluster_seq 
+		#if $quality_scores.quality_scores_select == "1":
+			-C $cluster_qual -S $singleton_qual
+		#end if
+		-a $contig_seq -A $contig_qual -e $contig_ace -m $contig_image -s $singleton_seq 
+		<!-- -r $report_a -b $report_b -p $algorithm -w $contig_seq.files_path-->
+		-r $report_a -b $report_b -p $algorithm -w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"
+		#if $assembly_algorithm_options.assembly_algorithm_options_select == "1":
+			-o "$assembly_algorithm_options.assembly_algorithm_option_specified"
+		#end if
+	</command>
+	
+	<inputs>
+		<param format="zip" name="cluster_seq" type="data" label="FASTA sequences (.zip)"/>
+		<conditional name="quality_scores">
+  			<param name="quality_scores_select" type="select" label="Include quality scores?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+				<param format="zip" name="cluster_qual" type="data" label="QUAL scores (.zip)"/>
+        	</when>
+  		</conditional>
+  		<param name="algorithm" type="select" label="Assemble algorithm">
+			<option value="phrap">phrap</option>
+			<option value="cap3">cap3</option>
+  		</param>
+  		<conditional name="assembly_algorithm_options">
+  			<param name="assembly_algorithm_options_select" type="select" label="Specify command line options of the algorithm, this will overwrite default values?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+                <param name="assembly_algorithm_option_specified" size="200" value="" type="text" label="Algorithm command line options"/>
+        	</when>
+  		</conditional>
+  		
+	</inputs>
+	<outputs>
+		<data format="fasta" name="contig_seq" type="data" label="Contig FASTA sequences"/>
+		<data format="qualsolid" name="contig_qual" type="data" label="Contig QUAL scores"/>
+		<data format="fasta" name="singleton_seq" type="data" label="Sinlgeton FASTA sequences"/>
+				
+		<data format="qualsolid" name="singleton_qual" type="data" label="Singleton QUAL scores">
+			 <filter>quality_scores.quality_scores_select == "1"</filter>
+		</data>
+		
+		<data format="zip" name="contig_ace" type="data" label="Contig ACE files (.zip)" />
+		<data format="zip" name="contig_image" type="data" label="Contig images (.zip)" />
+		<data format="txt" name="report_a" type="data" label="Assemble report A" />
+		<data format="txt" name="report_b" type="data" label="Assemble report B" />
+	</outputs>
+
+	<help>
+Assemble nucleotide clusters into contigs. A zip archive consisting of clusters and their corresponding sequences will be assembled
+into a unique contig per cluster. If quality scores are provided it will be included in the assembly process.
+
+**Inputs**
+
+**FASTA sequences (.zip)**
+
+* A zip archive consisting of clusters and their corresponding sequences.
+
+**QUAL scores (.zip)**
+
+* A zip archive consisting of clusters and their corresponding quality scores.
+
+**Assemble algorithm**
+
+* The assemble algorithm (currently phrap and cap3 only).
+
+**Specify command line options of the assemble algorithm, this will overwrite default values**
+
+* If user is not familiar with the command line options of the assemble program it is advisable to keep to the default values by selecting "No". 
+
+* Get phrap command line options here: http://www.phrap.org/phredphrap/phrap.html
+
+* Get cap3 command line options here: http://www.animalgenome.org/bioinfo/resources/manuals/cap3help.htm
+
+* Phrap default value: -penalty -2 -gap_init -2 -gap_ext -1 -ins_gap_ext -3 -del_gap_ext -3 -vector_bound 0 -trim_score 20 -forcelevel 0 -retain_duplicates -new_ace
+
+* Cap3 default value: not specified.
+
+-----
+
+**Outputs**
+
+**Contig FASTA sequences**
+
+* Contig sequences.
+
+**Contig QUAL scores**
+
+* Contig quality scores
+
+**Sinlgeton FASTA sequences**
+
+* Singleton sequences
+
+**Sinlgeton QUAL scores**
+
+* Singleton quality scores
+
+**Contig ACE files (.zip)**
+
+* A zip archive consisting of ACE file for each contig.
+
+**Contig image files (.zip)**
+
+* A zip archive consisting of image files for each contig.
+
+**Assemble report A**
+
+* A list of all contigs and their corresponding sequences. First column presents the contig id and the rest of the columns contain the sequences in the cluster.
+
+**Assemble report B**
+
+* A list of all clusters with more than one contis and their corresponding sequences. First column presents the contig id and the rest of the columns contain the sequences in the cluster.
+
+	</help>
+</tool>

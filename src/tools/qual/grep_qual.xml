@@ -1,0 +1,53 @@
+<tool id="grep_qual" name="Select quality scores">
+	<description>based on a pattern match in the header.</description>
+	<command interpreter="python">grep_qual.py -p "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -i $input_file -o $output_file -r "$pattern" -v $invert</command>
+	<inputs>
+<!-- 	<param name="project_dir" type="text" value="/home/gerrit/projects/paeano/scratch/project" label="Project name"/>  -->
+		<param format="qualsolid" name="input_file" type="data" label="QUAL scores"/>
+		<param name="pattern" size="40" type="text" value="^chr([0-9A-Za-z])+" label="Matching pattern" help="Here you can enter text or regular expression">
+		<sanitizer>
+            <valid initial="string.printable">
+             <remove value="&apos;"/>
+            </valid>
+           <mapping initial="none">
+            <add source="&apos;" target="__sq__"/>
+           </mapping>
+          </sanitizer>
+       </param>
+		<param name="invert" type="select" label="that">
+      			<option value="false">Match</option>
+			<option value="true">DO NOT Match</option>
+		</param>
+	</inputs>
+	<outputs>
+		<data format="qualsolid" name="output_file" type="data" label="Matced QUAL scores"/>
+<!-- 	<data format="text" name="grep_output" label="Process output"/>  -->
+	</outputs>
+
+	<help>
+Select quality scores based on a pattern match in the header.
+	
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**QUAL scores**
+
+* Quality scores. 
+
+**Matching pattern**
+
+* The pattern to match the header.
+
+-----
+
+**Outputs**	
+
+**Matched QUAL scores**
+
+* Returns the qualty scores that match the pattern in the header.
+		
+	</help>
+</tool>

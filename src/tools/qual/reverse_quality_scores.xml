@@ -1,0 +1,34 @@
+<tool id="reverse_quality_scores" name="Reverse quality scores">
+	<description>.</description>
+	<command interpreter="perl">reverse_quality_scores.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -qual $input_qual -rev_qual $reversed_qual</command>
+	<inputs>
+		<param format="qualsolid" name="input_qual" type="data" label="QUAL scores"/>
+	</inputs>
+	<outputs>
+		<data format="qualsolid" name="reversed_qual" type="data" label="Reversed QUAL scores"/>
+	</outputs>
+
+	<help>
+Reverse quality scores.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**QUAL scores**
+
+* Quality scores. 
+
+-----
+
+**Outputs**	
+
+**Reversed QUAL scores**
+
+* Reversed quality scores.	
+
+
+	</help>
+</tool>

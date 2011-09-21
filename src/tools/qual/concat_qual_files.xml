@@ -1,0 +1,39 @@
+<tool id="concat_qual_files" name="Concatenate two quality score files">
+	<description>.</description>
+	<command interpreter="perl">concat_files.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -file_1 $file_1 -file_2 $file_2 -concat_file $concat_file</command>
+	<inputs>
+                <param format="qualsolid" name="file_1" type="data" label="QUAL scores 1"/>
+                <param format="qualsolid" name="file_2" type="data" label="QUAL scores 2"/>
+	</inputs>
+	<outputs>
+		<data format="qualsolid" name="concat_file" type="data" label="Concatenated QUAL scores"/>
+	</outputs>
+
+	<help>
+Concatenate two quality score files.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**QUAL scores 1**
+
+* 1st file with quality scores. 
+
+**QUAL scores 2**
+
+* 2nd file with quality scores.
+
+-----
+
+**Outputs**	
+
+**Concatenated FQUAL scores**
+
+* Concatenated quality scores.	
+
+
+	</help>
+</tool>

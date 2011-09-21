@@ -1,0 +1,62 @@
+<tool id="b2g4pipe" name="Run Blast2GO">
+	<description>.</description>
+	<command interpreter="python">b2g4pipe.py -b $blast_report 
+		#if $interproscan.interproscan_select == "1":
+			-i $interproscan_xml
+		#end if
+		-g $blast2go_dat -a $blast2go_annot -m $blast2go_img
+		-w "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history"
+	</command>
+	
+	<inputs>
+		<param format="txt" name="blast_report" type="data" label="BlastXML report"/>
+		<conditional name="interproscan">
+  			<param name="interproscan_select" type="select" label="Include InterProScan XML results?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+				<param format="txt" name="interproscan_xml" type="data" label="InterProScan XML results"/>
+        	</when>
+  		</conditional>
+	</inputs>
+	<outputs>
+		<data format="bin" name="blast2go_dat" type="data" label="Blast2GO DAT project file"/>
+		<data format="txt" name="blast2go_annot" type="data" label="Blast2GO annotation file"/>
+		<data format="zip" name="blast2go_img" type="data" label="Blast2GO statistic charts file (.zip)" />
+	</outputs>
+
+	<help>
+Run the pipeline version of Blast2Go. A BlastXML file is expected as input. If InterProScan xml results are provided these will be included in the annotation. The output will be a Blast2GO project file, an annotation file 
+and a zipped file containing statistic charts.
+
+**Inputs**
+
+**BlastXML report**
+
+* Blast2GO in XML format. Consult Blast2GO documentation for correct format. Concatenating individual BlastXML files into a combined one will work.
+
+**InterProScan XML results**
+
+* InterProScan XML results file. Can contain several entries in one file. (optional).
+
+-----
+
+**Outputs**
+
+**Blast2GO DAT project file**
+
+* Blast2GO project data file. This file can be imported into the GUI version of Blast2GO for further analysis.
+
+**Blast2GO annotation file**
+
+* Blast2GO annotation file. A list of sequences and there go terms.
+
+**Blast2GO statistic charts file (.zip)**
+
+* Zipped file containing statistic charts.
+
+	</help>
+</tool>

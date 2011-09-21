@@ -1,0 +1,83 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	RewriteLogLevel 2
+	RewriteLog "/var/log/apache2/rewrite.log"
+	DocumentRoot /var/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+		
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+	ErrorLog /var/log/apache2/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /var/log/apache2/access.log combined
+
+    Alias /doc/ "/usr/share/doc/"
+    <Directory "/usr/share/doc/">
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.0/255.0.0.0 ::1/128
+    </Directory>
+
+    ###########################
+    #    Galaxy specific settings    #
+    ##################################
+    RewriteEngine on
+    ReWriteRule ^/galaxy$ /galaxy/ [R]
+    RewriteRule ^/galaxy/static/style/(.*) /usr/local/share/galaxy/galaxy_dist/static/june_2007_style/blue/$1 [L]
+    RewriteRule ^/galaxy/static/scripts/(.*) /usr/local/share/galaxy/galaxy_dist/static/scripts/packed/$1 [L]
+    RewriteRule ^/galaxy/static/(.*) /usr/local/share/galaxy/galaxy_dist/static/$1 [L]
+    RewriteRule ^/galaxy/favicon.ico /usr/local/share/galaxy/galaxy_dist/static/favicon.ico [L]
+    RewriteRule ^/galaxy/robots.txt /usr/local/share/galaxy/galaxy_dist/static/robots.txt [L]
+
+    RewriteRule ^/galaxy/admin/jobs(.*) http://localhost:8282/admin/jobs$1 [P]
+    RewriteRule ^/galaxy(.*) balancer://galaxy$1 [P]
+
+    <Proxy balancer://galaxy>
+	BalancerMember http://localhost:8280
+	BalancerMember http://localhost:8281
+    </Proxy>
+
+    ##################################
+
+    ###############################
+    #    Galaxy Test specific settings    #
+    ##################################
+    ReWriteRule ^/galtest$ /galtest/ [R]
+   
+    RewriteRule ^/galtest/static/style/(.*) /usr/local/share/galaxy/TEST_SERVER/galaxy_dist_test/static/june_2007_style/blue/$1 [L]
+    RewriteRule ^/galtest/static/scripts/(.*) /usr/local/share/galaxy/TEST_SERVER/galaxy_dist_test/static/scripts/packed/$1 [L]
+    RewriteRule ^/galtest/static/(.*) /usr/local/share/galaxy/TEST_SERVER/galaxy_dist_test/static/$1 [L]
+    RewriteRule ^/galtest/favicon.ico /usr/local/share/galaxy/TEST_SERVER/galaxy_dist_test/static/favicon.ico [L]
+    RewriteRule ^/galtest/robots.txt /usr/local/share/galaxy/TEST_SERVER/galaxy_dist_test/static/robots.txt [L]
+    
+    RewriteRule ^/galtest/admin/jobs(.*) http://localhost:8482/admin/jobs$1 [P]
+    RewriteRule ^/galtest(.*) balancer://galtest$1 [P]
+
+    <Proxy balancer://galtest>
+	BalancerMember http://localhost:8480
+	BalancerMember http://localhost:8481
+    </Proxy>
+    ###############################
+</VirtualHost>

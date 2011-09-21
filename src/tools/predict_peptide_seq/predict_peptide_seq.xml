@@ -1,0 +1,186 @@
+<tool id="predict_peptide_seq" name="Predict peptide sequences">
+	<description>.</description>
+	<command interpreter="perl">
+			predict_peptide_seq.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -seqn $seqn -mito $mito_code -nuc $nuc_code -rrna_similarities $rrna_similarities -mito_similarities $mito_similarities 
+			#if $nuclear_similarities.nuclear_similarities_select == "1":
+				-nuclear_similarities "yes" -blast_report $nuclear_similarities.blast_report -blast_format $nuclear_similarities.blast_format
+			#end if
+			#if $nuclear_similarities.nuclear_similarities_select == "0":
+				-nuclear_similarities "no" -blast_report "none" -blast_format "none"
+			#end if
+			#if $estscan.estscan_select == "1":
+				-estscan "yes" -estscan_matrix $estscan.estscan_matrix
+			#end if
+			#if $estscan.estscan_select == "0":
+				-estscan "no" -estscan_matrix "none"
+			#end if
+			#if $decoder.decoder_select == "1":
+				-decoder "yes" -qualn $decoder.qualn -bias "$decoder.bias_organism"
+			#end if
+			#if $decoder.decoder_select == "0":
+				-decoder "no" -qualn "none" -bias "none"
+			#end if
+			-seqp $seqp -seqr $seqr
+	</command>
+	
+	<inputs>
+		<param format="fasta" name="seqn" type="data" label="Nucleotide FASTA sequences"/>
+  		<param name="nuc_code" size="3" value="1" type="text" label="Nuclear code"/>
+        <param name="mito_code" size="3" value="16" type="text" label="Mitochondrial code"/>
+        
+        <param name="rrna_similarities" type="select" label="BLAST against ribosomal RNA genes and search for similarities?">
+			<option value="no">no</option>
+			<option value="yes">yes</option>
+  		</param>
+       
+        <param name="mito_similarities" type="select" label="BLAST against mithocondrial genes and search for similarities?">
+			<option value="no">no</option>
+			<option value="yes">yes</option>
+  		</param> 
+  		
+  		
+  		<conditional name="nuclear_similarities">
+  			<param name="nuclear_similarities_select" type="select" label="Provide protein BLASTx reports and search for nuclear similarities?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+   				<param format="txt,blastxml" name="blast_report" type="data" label="BlastX reports of the nucleotide FASTA sequences"/>
+	    		<param name="blast_format" type="select" label="Blast report format">
+					<option value="bls">Pairwise</option>
+					<option value="xml">XML</option>
+  				</param>
+        	</when>
+  		</conditional>
+  	        
+        <conditional name="estscan">
+  		  	<param name="estscan_select" type="select" label="Make use of ESTScan?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  				
+  			</when>
+  			<when value="1">
+  				<param name="estscan_matrix" type="select" label="ESTScan scoring matrix">
+					<option value="hs">Homo sapiens</option>
+					<option value="at">Arabidopsis thaliana</option>
+					<option value="os">Oryza sativa</option>
+					<option value="dm">Drosophila melanogaster</option>
+					<option value="mm">Mus musculus</option>
+					<option value="zm">Zea mays</option>
+  				</param>
+        	</when>
+  		</conditional>
+  		
+  		<conditional name="decoder">
+  			<param name="decoder_select" type="select" label="Make use of decoder?">
+  				<option value="0" selected="true">No</option>
+                <option value="1">Yes</option>
+  			</param>
+  			<when value="0">
+  			</when>
+        	<when value="1">
+                <param format="qualsolid" name="qualn" type="data" label="QUAL scores of the nucleotide FASTA sequences"/>
+                <param name="bias_organism" size="40" value="Oryza sativa" type="text" label="Bias organism"/>
+        	</when>
+  		</conditional>
+  		
+	</inputs>
+	<outputs>
+		<data format="fasta" name="seqp" type="data" label="Peptide FASTA sequence"/>
+		<data format="fasta" name="seqr" type="data" label="Ribosomal RNA genes"/>
+	</outputs>
+
+	<help>
+Predict a peptide sequence from a nucleotide sequence.
+
+**Inputs**
+
+<!--   **Project name**
+
+* For the moment choose a writable directory on the server. -->
+
+**Nucleotide FASTA sequences**
+
+* The nucleotide sequence. 
+
+**Blast report format**
+
+* Blast default pairwise output (pairwise) or xml blast output (xml)).
+
+**BlastX reports of the nucleotide FASTA sequences**
+
+**Nuclear code**
+
+* Nuclear code.
+
+**Mitochondrial code**
+
+* Mitochondrial code.
+
+**NCBI Genetic code table (for nuclear and mitochondrial select option)**
+
+* 1 =  Standard
+ 
+* 2 =  Vertebrate Mitochondrial
+
+* 3 =  Yeast Mitochondrial
+
+* 4 =  Mold, Protozoan,  Coelenterate Mitochondrial and Mycoplasma/Spiroplasma
+
+* 5 =  Invertebrate Mitochondrial
+
+* 6 =  Ciliate Macronuclear and Dasycladacean
+
+* 9 =  Echinoderm Mitochondrial
+
+* 10 = Euplotid Nuclear
+
+* 11 = Bacterial
+
+* 12 = Alternative Yeast Nuclear
+
+* 13 = Ascidian Mitochondrial
+
+* 14 = Flatworm Mitochondrial
+
+* 15 = Blepharisma Macronuclear
+
+* 16 = Chlorophycean Mitochondrial
+
+* 21 = Trematode Mitochondrial
+
+* 22 = Scenedesmus obliquus
+
+* 23 = Thraustochytrium Mitochondrial
+
+
+**ESTScan scoring matrix**
+
+* ESTScan score matrix (ESTScan).
+
+**Bias organism**
+
+* Bias organism (decoder).
+
+**QUAL scores of the nucleotide FASTA sequences**
+
+* Quality scores of the nucleotide sequences (decoder).
+
+-----
+
+**Outputs**	
+
+**Peptide FASTA sequence**
+
+* The predicted peptide sequence.
+
+**Ribosomal RNA genes**
+
+* The predicted ribosomal RNA genes.
+
+</help>
+</tool>

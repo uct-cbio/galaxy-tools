@@ -1,0 +1,60 @@
+<tool id="convert_blast_report" name="Convert a BLAST report">
+	<description>to another BLAST format.</description>
+	<command interpreter="perl">convert_blast_report.pl -blast_report $blast_report -blast_format $blast_format -new_blast_format $new_blast_format -new_blast_report $new_blast_report -prog_work "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -d</command>
+	<inputs>
+		<param format="txt" name="blast_report" type="data" label="BLAST report"/>
+		<param name="blast_format" type="select" label="Blast format">
+        	<option value="xml">XML</option>
+			<option value="bls">Pairwise</option>
+  		</param>
+  		<param name="new_blast_format" type="select" label="New blast format">
+        	<option value="htw">HitTableWriter</option>
+			<option value="html">HTMLResultWriter</option>
+			<option value="gff">GbrowseGFF (only works with blastn results)</option>
+<!--  		<option value="bsml">BSMLResultWriter</option> at the moment it is not working -->
+			<option value="rtw">ResultTableWriter</option>
+			<option value="bls">Pairwise Report</option>
+			<option value="bht">BestHitTable</option>
+  		</param>
+	</inputs>
+	<outputs>
+		<data format="txt" name="new_blast_report" type="data" label="Converted blast report">
+			<change_format>
+				<when input="new_blast_format" value="htw" format="tabular"/>
+				<when input="new_blast_format" value="rtw" format="tabular"/>
+				<when input="new_blast_format" value="bht" format="tabular"/>
+				<when input="new_blast_format" value="html" format="html"/>
+				<when input="new_blast_format" value="gff" format="gff"/>
+			</change_format>
+		</data>
+	</outputs>
+
+	<help>
+
+Convert a BLAST report to another format. The possible formats are HitTableWriter, HTMLResultWriter, GbrowseGFF, ResultTableWriter, BestHitTable and a pairwise blast report.
+
+**Inputs**
+
+**BLAST report**
+
+* BLAST report
+
+**Blast format**
+
+* Current blast format.
+
+**New blast format**
+
+* New blast format to convert to. The possible formats are HitTableWriter, HTMLResultWriter, GbrowseGFF (only works with blastn results), ResultTableWriter, BestHitTable and a pairwise blast report.
+
+
+-----
+
+**Outputs**
+
+**Converted blast report**
+
+* New converted blast report. 
+
+	</help>
+</tool>

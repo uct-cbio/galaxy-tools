@@ -1,0 +1,38 @@
+<tool id="generate_html_blast_reports" name="Generate HTML BLAST reports">
+	<description>from XML or pairwise formatted reports.</description>
+	<command interpreter="perl">generate_html_blast_reports.pl -blast_report $blast_report -blast_format $blast_format -html_blast_report $html_blast_report -out ${html_blast_report.extra_files_path} -prog_work "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -d</command>
+	<inputs>
+		<param format="txt" name="blast_report" type="data" label="BLAST report" />
+		<param name="blast_format" type="select" label="Format of BLAST report">
+			<option value="xml">XML</option>
+			<option value="bls">pairwise</option>
+  		</param>
+	</inputs>
+	<outputs>
+		<data format="html" name="html_blast_report" type="data" label="HTML BLAST reports"/>
+	</outputs>
+
+	<help>
+	
+Generate an HTML page with links to HTML BLAST reports.
+	
+**Inputs**
+
+**BLAST report**
+
+* A concatenated file with single XML or pairwise blast reports.
+
+**Format of BLAST report**
+
+* The format of the input reports.
+
+-----
+
+**Outputs**	
+
+**HTML BLAST reports**
+
+* An HTML page with links to HTML BLAST reports.
+
+	</help>
+</tool>
