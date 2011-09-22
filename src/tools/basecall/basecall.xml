@@ -3,7 +3,7 @@
 	<command interpreter="perl">basecall.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -ab1seq $ab1_zipped_input -seq
 		$fasta_output -qual $quality_scores_output -scf $scf_output -phred $phred_output</command>
 	<inputs>
-		<param format="binseq.zip" name="ab1_zipped_input" type="data" label="Zipped AB1 trace files" />
+		<param format="zip" name="ab1_zipped_input" type="data" label="Zipped AB1 trace files" />
 	</inputs>
 	<outputs>
 		<data format="fasta" name="fasta_output" type="data"	label="FASTA sequences" />

@@ -5,3 +5,7 @@
     <datatype extension="zip" type="galaxy.datatypes.uct_cbio:GenZip" mimetype="application/zip" display_in_upload="true"/>
 	<datatype extension="dat" type="galaxy.datatypes.uct_cbio:GenBin" mimetype="application/octet-stream" display_in_upload="true"/>
 	<!-- -->
+
+	<!--  Ludwig's -->
+	<datatype extension="rdata" type="galaxy.datatypes.uct_cbio:RDatatype" mimetype="application/octet-stream" display_in_upload="true"/>
+	<!--  -->
