@@ -38,7 +38,7 @@ Select fasta sequences based on a pattern match in the header.
 
 **Matching pattern**
 
-* The pattern to match the header.
+* The pattern to match the header. E.g. .\*[rR]_.\*
 
 -----
 
