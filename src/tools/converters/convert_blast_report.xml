@@ -10,9 +10,9 @@
   		<param name="new_blast_format" type="select" label="New blast format">
         	<option value="htw">HitTableWriter</option>
 			<option value="html">HTMLResultWriter</option>
-			<option value="gff">GbrowseGFF (only works with blastn results)</option>
+<!--  		<option value="gff">GbrowseGFF (only works with blastn results)</option> -->
 <!--  		<option value="bsml">BSMLResultWriter</option> at the moment it is not working -->
-			<option value="rtw">ResultTableWriter</option>
+<!--			<option value="rtw">ResultTableWriter</option> -->
 			<option value="bls">Pairwise Report</option>
 			<option value="bht">BestHitTable</option>
   		</param>
