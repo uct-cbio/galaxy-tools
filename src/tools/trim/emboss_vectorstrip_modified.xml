@@ -1,4 +1,4 @@
-<tool id="emboss_vectorstrip_modified" name="emboss_vectorstrip_modified" version="1.0.0">
+<tool id="emboss_vectorstrip_modified" name="EMBOSS modified vectorstrip" version="1.0.0">
   <description>Strips out DNA between a pair of adapter sequences</description>
   <requirements><requirement type="package" version="5.0.0">emboss</requirement></requirements>
   <command>vectorstrip -sequence $input1 -outseq $ofile1 -outfile $ofile2 -vectorfile no -mismatch 0 -besthits "yes" -linkera "$linkera" -linkerb
