@@ -7,6 +7,7 @@
     <label text="Sequence processing" id="uct_cbio_sequence_processing" />
       <tool file="uct_cbio/basecall.xml"/>
       <tool file="uct_cbio/trim.xml"/>
+      <tool file="uct_cbio/emboss_vectorstrip_modified.xml"/>
       <tool file="uct_cbio/cluster.xml"/>
       <tool file="uct_cbio/assemble.xml"/>
       <tool file="uct_cbio/predict_peptide_seq.xml"/>      
