@@ -4,6 +4,7 @@
 		$fasta_output -qual $quality_scores_output -scf $scf_output -phred $phred_output</command>
 	<inputs>
 		<param format="data" name="ab1_zipped_input" type="data" label="Zipped AB1 trace files" />
+		<!--  Need to change format back to format="zip" at a later stage. Issue: zip files do not show up as an option when running a workflow -->
 	</inputs>
 	<outputs>
 		<data format="fasta" name="fasta_output" type="data"	label="FASTA sequences" />
