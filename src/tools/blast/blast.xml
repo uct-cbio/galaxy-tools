@@ -1,6 +1,6 @@
 <tool id="blast" name="Run a local BLAST ">
 	<description>(blastx, blastn, blastp).</description>
-	<command interpreter="perl">blast.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -seq $fasta_input -blast_type $blast_type -blast_db "$blast_db" -top_nr_hits $top_nr_hits -e_value $e_score -word_size $word_size -score_matrix $score_matrix -blast_format $blast_format -nr_workers 5 -blast_report $blast_report -failed_blast $failed -add_blast_options "$add_blast_options"</command>
+	<command interpreter="perl">blast.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -seq $fasta_input -blast_type $blast_type -blast_db "$blast_db" -top_nr_hits $top_nr_hits -e_value $e_score -word_size $word_size -score_matrix $score_matrix -blast_format $blast_format -nr_workers 2 -blast_report $blast_report -failed_blast $failed -add_blast_options "$add_blast_options"</command>
 	<inputs>
 		<param format="fasta" name="fasta_input" type="data" label="Sequences to be blasted"/>
 		<param name="blast_type" type="select" label="Type of blast">
@@ -11,13 +11,13 @@
   		<param name="blast_db" type="select" label="Database to blast against" multiple="true">
 			<option value="nt">nt</option>
 			<option value="nr">nr</option>
-			<option value="uniprot_sprot">uniprot_sprot</option>
+<!-- 			<option value="uniprot_sprot">uniprot_sprot</option>
 			<option value="uniprot_trembl">uniprot_trembl</option>
 			<option value="ensembl_chimp">ensembl_chimp</option>
 			<option value="ensembl_human">ensembl_human</option>
 			<option value="ensembl_macaque">ensembl_macaque</option>
 			<option value="ensembl_gorilla">ensembl_gorilla</option>
-			<option value="uniprot_maize">uniprot_maize</option>
+			<option value="uniprot_maize">uniprot_maize</option>  -->
   		</param>
         <param name="top_nr_hits" size="10" value="30" type="text" label="Best hits"/>
         <param name="e_score" size="40" value="0.00001" type="text" label="E cut-off value"/>
