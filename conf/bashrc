@@ -3,9 +3,12 @@ export PATH=$GALAXY_HOME_PATH/python2.6/bin:$PATH
 export TEMP=$GALAXY_HOME_PATH/galaxy-dist/database/tmp
 
 # Path setup needed for running uct cbio tools
-export UCT_CBIO_TOOLS=/home/galaxy/uct_cbio_tools/src/tools/
+export UCT_CBIO_TOOLS=$GALAXY_HOME_PATH/uct_cbio_tools/src/tools/
 export PERL5LIB=$PERL5LIB:$UCT_CBIO_TOOLS
 export PYTHONPATH=$PYTHONPATH:$UCT_CBIO_TOOLS:$UCT_CBIO_TOOLS/converters/lib:$GALAXY_HOME_PATH/python_install_packages/rpy-1.0.3/build/lib.linux-x86_64-2.6:$GALAXY_HOME_PATH/python_install_packages/gnuplot-py-1.8/build/lib
+
+# Java
+export PATH=$GALAXY_HOME_PATH/jdk1.6.0_27/bin:$PATH
 
 # Tool dependencies
 # reverse complement
