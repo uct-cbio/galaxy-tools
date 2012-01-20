@@ -20,19 +20,16 @@ export PATH=$PATH:$GALAXY_HOME_PATH/software/blast/bin
 # blast+
 export PATH=$PATH:$GALAXY_HOME_PATH/software/blast+/c++/install/bin
 
-
-
 # basecall
 export PATH=$PATH:$GALAXY_HOME_PATH/software/phred
 export PHRED_PARAMETER_FILE=$GALAXY_HOME_PATH/software/phred/phredpar.dat
-# ......
+
 # cluster
 export PATH=$PATH:/home/galaxy/software/wcd/install/bin
 # assembly
 export PATH=$PATH:$GALAXY_HOME_PATH/software/cap3
 export PATH=$PATH:$GALAXY_HOME_PATH/software/phrap
 export PATH=$PATH:$UCT_CBIO_TOOLS/dependencies/contigimage
-
 
 # protein prediction
 
@@ -46,6 +43,9 @@ export PATH=$PATH:$GALAXY_HOME_PATH/software/metagenemark
 export METAGENEMARK_MODEL_FILE=$GALAXY_HOME_PATH/software/metagenemark/MetaGeneMark_v1.mod
 
 # interproscan
+export PATH=$PATH:$GALAXY_HOME_PATH/software/interproscan/iprscan/bin
+export IPRSCAN_OUTPUT_DIR=$GALAXY_HOME_PATH/software/interproscan/iprscan/tmp
+export IPRSCAN_IMAGES_DIR=$GALAXY_HOME_PATH/software/interproscan/iprscan/images
 
 # ngs software
 
