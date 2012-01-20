@@ -34,6 +34,9 @@ export PATH=$PATH:$UCT_CBIO_TOOLS/dependencies/contigimage
 # protein prediction
 
 # blast2go
+export BLAST2GO_JAR_FILE=$GALAXY_HOME_PATH/software/b2g4pipe/blast2go.jar
+export BLAST2GO_PROPERTIES_FILE=$GALAXY_HOME_PATH/software/b2g4pipe/blast2go.properties
+export PATH=$PATH:$UCT_CBIO_TOOLS/dependencies/interproscan
 
 # metagenemark
 export PATH=$PATH:$GALAXY_HOME_PATH/software/metagenemark
