@@ -1,0 +1,53 @@
+export GALAXY_HOME_PATH=/home/galaxy/
+export PATH=$GALAXY_HOME_PATH/python2.6/bin:$PATH
+export TEMP=$GALAXY_HOME_PATH/galaxy-dist/database/tmp
+
+# Path setup needed for running uct cbio tools
+export UCT_CBIO_TOOLS=/home/galaxy/uct_cbio_tools/src/tools/
+export PERL5LIB=$PERL5LIB:$UCT_CBIO_TOOLS
+export PYTHONPATH=$PYTHONPATH:$UCT_CBIO_TOOLS:$UCT_CBIO_TOOLS/converters/lib:$GALAXY_HOME_PATH/python_install_packages/rpy-1.0.3/build/lib.linux-x86_64-2.6:$GALAXY_HOME_PATH/python_install_packages/gnuplot-py-1.8/build/lib
+
+# Tool dependencies
+# reverse complement
+export PATH=$PATH:$UCT_CBIO_TOOLS/dependencies/revcomp
+# blast (legacy)
+export BLASTDB=$GALAXY_HOME_PATH/databases/blast
+export BLASTMAT=$GALAXY_HOME_PATH/software/blast/data
+export PATH=$PATH:$GALAXY_HOME_PATH/software/blast/bin
+# blast+
+export PATH=$PATH:$GALAXY_HOME_PATH/software/blast+/c++/install/bin
+
+
+
+# basecall
+export PATH=$PATH:$GALAXY_HOME_PATH/software/phred
+export PHRED_PARAMETER_FILE=$GALAXY_HOME_PATH/software/phred/phredpar.dat
+# ......
+# cluster
+export PATH=$PATH:/home/galaxy/software/wcd/install/bin
+# assembly
+export PATH=$PATH:$GALAXY_HOME_PATH/software/cap3
+export PATH=$PATH:$GALAXY_HOME_PATH/software/phrap
+export PATH=$PATH:$UCT_CBIO_TOOLS/dependencies/contigimage
+
+
+# protein prediction
+
+# blast2go
+
+# metagenemark
+export PATH=$PATH:$GALAXY_HOME_PATH/software/metagenemark
+export METAGENEMARK_MODEL_FILE=$GALAXY_HOME_PATH/software/metagenemark/MetaGeneMark_v1.mod
+
+# interproscan
+
+# ngs software
+
+# emboss
+export PATH=$PATH:$GALAXY_HOME_PATH/software/emboss/install/bin
+
+# enable galaxy virtual environment
+. $GALAXY_HOME_PATH/galaxy_env/bin/activate
+
+export PATH=$PATH:/home/galaxy/bin
+
