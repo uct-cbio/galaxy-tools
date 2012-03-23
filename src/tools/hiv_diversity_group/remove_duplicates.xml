@@ -5,8 +5,8 @@
 		<param format="tabular" name="input" type="data" label="Tab delimited alignment file"/>
 	</inputs>
 	<outputs>
-		<data format="fasta" name="output type="data" label="Fasta output without duplicates" />
-		<data format="txt" name="output type="data" label="Process log"/>
+		<data format="fasta" name="output" type="data" label="Fasta output without duplicates" />
+		<data format="txt" name="log" type="data" label="Process log"/>
 	</outputs>
 
 	<help>
