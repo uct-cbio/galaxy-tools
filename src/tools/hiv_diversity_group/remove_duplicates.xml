@@ -10,7 +10,7 @@
 	</outputs>
 
 	<help>
-Cluster a set of nucleotide sequences.
+Remove duplicate sequences and renames identical seqnames. Reads a tab delimited alignment and outputs a fasta file with one copy of each sequence and prints deleted copies of duplicate sequences. Also print the number of sequences in the output file.
 
 **Inputs**
 
