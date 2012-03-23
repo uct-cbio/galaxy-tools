@@ -1,0 +1,35 @@
+<tool id="hivdg_remove_duplicates" name="Remove duplicates">
+	<description>.</description>
+	<command interpreter="python">remove_duplicates.py $input $output $log</command>
+	<inputs>
+		<param format="tabular" name="input" type="data" label="Tab delimited alignment file"/>
+  		</param>
+	</inputs>
+	<outputs>
+		<data format="fasta" name="output type="data" label="Fasta output without duplicates" />
+		<data format="txt" name="output type="data" label="Process log"/>
+	</outputs>
+
+	<help>
+Cluster a set of nucleotide sequences.
+
+**Inputs**
+
+**Tab delimited alignment file**
+
+* Tab delimited alignment file....
+
+-----
+
+**Outputs**	
+
+**Fasta output without duplicates**
+
+* Fasta output without duplicates...
+
+**Process Log**
+
+* Process Log...
+
+	</help>
+</tool>
