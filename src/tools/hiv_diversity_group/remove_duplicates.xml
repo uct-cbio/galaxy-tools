@@ -3,7 +3,6 @@
 	<command interpreter="python">remove_duplicates.py $input $output $log</command>
 	<inputs>
 		<param format="tabular" name="input" type="data" label="Tab delimited alignment file"/>
-  		</param>
 	</inputs>
 	<outputs>
 		<data format="fasta" name="output type="data" label="Fasta output without duplicates" />
