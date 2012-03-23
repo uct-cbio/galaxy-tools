@@ -47,3 +47,7 @@
       <tool file="uct_cbio/split_interproscan_results.xml"/>
       <tool file="uct_cbio/dbest.xml"/>
    </section>
+   
+   <section name="HIV Diversity Group" id="hiv_diversity_group">
+      <tool file="hiv_diversity_group/remove_duplicates.xml"/>
+   </section>
