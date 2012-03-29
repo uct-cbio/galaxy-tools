@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 #get and compare AA frequencies bwtn 2 alignments using fisher's exact test
 #to run:  /opt/rocks/bin/python aafreqs.py aafreqsSensitive.txt aafreqsResistant.txt
 
