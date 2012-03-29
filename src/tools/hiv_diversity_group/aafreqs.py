@@ -64,7 +64,6 @@ outf2 = open("aafreqs_SITEresidueCounts.txt","w")
 outf2.write("Site\tResidue\tCountINfile1\tCountINfile2\n")
 r_fisher_file = os.environ.get("R_FISHER_FILE")
 
-from rpy import *
 #for s in range(1,5):
 #site = str(s+1)
 for site in data:
