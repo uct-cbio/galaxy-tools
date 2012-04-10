@@ -2,8 +2,8 @@
 	<description>.</description>
 	<command interpreter="python">aafreqs.py $input_1 $input_2 $output $log</command>
 	<inputs>
-		<param format="tabular" name="$input_1" type="data" label="Tab delimited alignment file1"/>
-		<param format="tabular" name="$input_2" type="data" label="Tab delimited alignment file2"/>
+		<param format="tabular" name="input_1" type="data" label="Tab delimited alignment file1"/>
+		<param format="tabular" name="input_2" type="data" label="Tab delimited alignment file2"/>
 	</inputs>
 	<outputs>
 		<data format="txt" name="output" type="data" label="Fisher-exact test pvalues" />
