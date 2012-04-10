@@ -73,8 +73,6 @@ for nt in data:
 	if len(nt[-1][1])>1:	#sites with one and identical residue btwn alingments not tested
 		numtests = numtests+1
 
-from rpy import *
-
 for sit in range(len(data)):
 	site = data[sit][0]
 #	print data[sit]
