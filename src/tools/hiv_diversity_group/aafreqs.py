@@ -4,7 +4,7 @@
 #to run:  /opt/rocks/bin/python aafreqs.py aafreqsSensitive.txt aafreqsResistant.txt aafreqPVALUES aafreqCOUNTS
 
 import sys
-import rpy
+from rpy import *
 import os
 infile1,infile2, outfile, logfile = sys.argv[-4], sys.argv[-3],sys.argv[-2], sys.argv[-1]			#tab_del aa alignment files
 
@@ -84,7 +84,7 @@ for sit in range(len(data)):
 		outf2.write(site+"\t"+aa+"\t"+str(sited[0][aa][0])+"\t"+str(sited[0][aa][-1])+"\n")
 
 	if len(sited[1])>1:		#do fisher's exact test on aa counts
-		r_fisher_file = os.environ.get(" R_FISHER_FILE")
+		r_fisher_file = os.environ.get("R_FISHER_FILE")
 		r.source(r_fisher_file)
 	#		print data[site][1],data[site][-1]
 		fisher = r.my_fisher(sited[1],sited[-1])
