@@ -1,24 +1,28 @@
 #!/usr/bin/python
 #get and compare AA frequencies bwtn 2 alignments using fisher's exact test
-#to run:  /opt/rocks/bin/python aafreqs.py aafreqsSensitive.txt aafreqsResistant.txt
+#test for residue association where pvalue from above <0.05
+#to run:  /opt/rocks/bin/python aafreqs.py aafreqsSensitive.txt aafreqsResistant.txt aafreqPVALUES aafreqCOUNTS
 
 import sys
 import rpy
-seqfile1, seqfile2 = sys.argv[-2], sys.argv[-1]			#tab_del aa alignment files
+infile1,infile2, outfile, logfile = sys.argv[-4], sys.argv[-3],sys.argv[-2], sys.argv[-1]			#tab_del aa alignment files
 
 def aafrequency(alignment1, alignment2):			#for each alignment
 	f1 = open(alignment1,"r")
 	lines1 = f1.readlines()
 	sub1 = []				#list of file1 seqs
 	allresults = {}
+	
 	for line1 in lines1:
 		lin = line1.strip().split("\t")
 		ID = lin[0].strip()
 		seq = lin[-1].strip()
 		sub1.append(seq)
+	
 	f2 = open(alignment2,"r")
         lines2 = f2.readlines()
         sub2 = []                               #list of file2 seqs
+	
         for line2 in lines2:
                 lin2 = line2.strip().split("\t")
                 ID2 = lin2[0].strip()
@@ -55,30 +59,47 @@ def aafrequency(alignment1, alignment2):			#for each alignment
 		allresults[str(i+1)] = [afreqs,aa1,aa2]
 	f1.close()
 	f2.close()
+	allresults = sorted(allresults.items())
 	return allresults
 
-data = aafrequency(seqfile1, seqfile2)
-outf = open("aafreqs_FISHERresults.txt","w")
-outf.write("Site\tPvalue\tPvalue(Bonferroni_Corrected)\n")
-outf2 = open("aafreqs_SITEresidueCounts.txt","w")
+data = aafrequency(infile1, infile2)
+outf = open(outfile,"w")
+outf.write("Site\tPvalue\tPvalue(BonferroniCorrected)\n")
+outf2 = open(logfile,"w")
 outf2.write("Site\tResidue\tCountINfile1\tCountINfile2\n")
-r_fisher_file = os.environ.get("R_FISHER_FILE")
 
-#for s in range(1,5):
-#site = str(s+1)
-for site in data:
-#	print site, data[site]
-	for aa in data[site][0]:		#get res count per site into outf2
-		outf2.write(site+"\t"+aa+"\t"+str(data[site][0][aa][0])+"\t"+str(data[site][0][aa][-1])+"\n")
+numtests = 0			#get num of tests to be done
+for nt in data:
+	if len(nt[-1][1])>1:	#sites with one and identical residue btwn alingments not tested
+		numtests = numtests+1
 
-	if len(data[site][1])>1:		#do fisher's exact test on aa counts
-		r.source(r_fisher_file)
+from rpy import *
+
+for sit in range(len(data)):
+	site = data[sit][0]
+#	print data[sit]
+	sited = data[sit][-1]
+#	print sited
+	for aa in sited[0]:		#get res count per site into outf2
+#		print aa, sited[0][aa][0]
+		outf2.write(site+"\t"+aa+"\t"+str(sited[0][aa][0])+"\t"+str(sited[0][aa][-1])+"\n")
+
+	if len(sited[1])>1:		#do fisher's exact test on aa counts
+		r.source("fisher_file.R")
 	#		print data[site][1],data[site][-1]
-		fisher = r.my_fisher(data[site][1],data[site][-1])
+		fisher = r.my_fisher(sited[1],sited[-1])
 #		if fisher['p.value'] < 0.045:
 #			print site, data[site][1], data[site][-1],"fisher pvalue = : ", fisher['p.value'], fisher['p.value']*len(data)
-		outf.write(site+"\t"+str(fisher['p.value'])+"\t"+str(fisher['p.value']*len(data))+"\n")
+		outf.write(site+"\t"+str(fisher['p.value'])+"\t"+str(fisher['p.value']*numtests)+"\n")
+		if fisher['p.value'] < 0.045:
+			outf.write("AA\tpvalue\tBonferroniCorrected\tOddsRatio\n")
+			for sa in sited[0]:
+				sa1 = [sited[0][sa][0],sum(sited[1])-sited[0][sa][0]]	#count aa in file1, count rest aa
+				sa2 = [sited[0][sa][-1],sum(sited[-1])-sited[0][sa][-1]]
+#				print sa1, sa2
+				fisherassoc = r.my_fisher(sa1,sa2)
+				outf.write(sa+"\t"+str(fisherassoc['p.value'])+"\t"+str(fisherassoc['p.value']*len(sited[0]))+"\t"+str(fisherassoc['estimate']['odds ratio'])+"\n")
 	else:
-		outf.write(site+"\t"+"data_small"+"\n")
+		outf.write(site+"\t"+"similar_single_residue"+"\n")
 outf.close()
 outf2.close()
