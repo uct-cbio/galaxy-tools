@@ -94,8 +94,8 @@ for sit in range(len(data)):
 		if fisher['p.value'] < 0.045:
 			outf.write("AA\tpvalue\tBonferroniCorrected\tOddsRatio\n")
 			for sa in sited[0]:
-				sa1 = [sited[0][sa][0],sum(sited[1])-sited[0][sa][0]]	#count aa in file1, count rest aa
-				sa2 = [sited[0][sa][-1],sum(sited[-1])-sited[0][sa][-1]]
+				sa1 = [sited[0][sa][0],int(sum(sited[1])-sited[0][sa][0])]	#count aa in file1, count rest aa
+				sa2 = [sited[0][sa][-1],int(sum(sited[-1])-sited[0][sa][-1])]
 #				print sa1, sa2
 				fisherassoc = r.my_fisher(sa1,sa2)
 				outf.write(sa+"\t"+str(fisherassoc['p.value'])+"\t"+str(fisherassoc['p.value']*len(sited[0]))+"\t"+str(fisherassoc['estimate']['odds ratio'])+"\n")
