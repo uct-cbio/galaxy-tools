@@ -48,7 +48,25 @@
       <tool file="uct_cbio/dbest.xml"/>
    </section>
    
+   <section name="UCT CBIO Mapping Expression onto Pathways" id="uct_cbio_pwy_mapping">
+    <label text="PREPROCESSING" id="pwy_map_pre" />
+      <tool file="uct_cbio/readEset.xml"/>
+      <tool file="uct_cbio/probeEset2geneEset.xml"/>
+      <tool file="uct_cbio/computePermutationMatrices.xml"/>
+      <tool file="uct_cbio/downloadKEGGPathways.xml"/>
+      <tool file="uct_cbio/extractGenesetsFromPathways.xml"/>
+     <label text="ENRICHMENT" id="pwy_map_eBrowse" />
+      <tool file="uct_cbio/ora.xml"/>
+      <tool file="uct_cbio/gsea.xml"/>
+      <tool file="uct_cbio/ggea_galaxy.xml"/>
+      <tool file="uct_cbio/pathwave.xml"/>
+      <tool file="uct_cbio/enricher.xml"/>
+   </section>
+   
    <section name="HIV Diversity Group" id="hiv_diversity_group">
       <tool file="hiv_diversity_group/remove_duplicates.xml"/>
       <tool file="hiv_diversity_group/aafreqs.xml"/>
    </section>
+   
+   
+   

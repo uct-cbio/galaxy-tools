@@ -63,3 +63,25 @@ class GenZip( Binary ):
         """Returns the mime type of the datatype"""
         return 'application/zip'
 
+# Generic R Data
+class RDatatype( Binary ):
+    """RData file"""
+    file_ext = "rdata"
+
+    def __init__(self, **kwd):
+        """Initialize binary datatype"""
+        Binary.__init__(self, **kwd)
+
+    def set_peek( self, dataset, is_multi_byte=False ):
+        if not dataset.dataset.purged:
+            dataset.peek  = "RData file"
+            dataset.blurb = data.nice_size( dataset.get_size() )
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+    def display_peek( self, dataset ):
+        try:
+            return dataset.peek
+        except:
+            return "RData file (%s)" % ( data.nice_size( dataset.get_size() ) )
+
