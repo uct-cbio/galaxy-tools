@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<tool name="Cluster genes" id="clusterGenes">
+ <description>in respect to their expression behaviour</description>
+        <command interpreter="Rscript">clusterGenes.R ${os.path.join($eset.extra_files_path, 'rexpression.eset' )} $distance $clmethod $nr $text_out</command>
+        <inputs>
+		<param format="eset" name="eset" type="data" label="Expression set"/>
+                <param name="distance" type="select" label="Distance method">
+                        <option value="euclidean" selected="true">euclidean</option>
+                        <option value="pearson">pearson</option>
+			<option value="spearman">spearman</option>
+			<option value="kendall">kendall</option>
+			<option value="manhattan">manhattan</option>
+                        <option value="kullback.leibler.discrete">kullback.leibler.discrete</option>
+			<option value="kullback.leibler.continuous">kullback.leibler.continuous</option>
+			<option value="mutual.information.independence">mutual.information.independence</option>
+			<option value="mutual.information.general">mutual.information.general</option>
+                </param>
+        	<param name="clmethod" type="select" label="Cluster method">
+                        <option value="average" selected="true">average</option>
+                        <option value="single">single</option>
+			<option value="complete">complete</option>
+			<option value="ward">ward</option>
+			<option value="mcquitty">mcquitty</option>
+                        <option value="median">median</option>
+			<option value="centroid">centroid</option>
+                </param>
+		<param name="nr" size="5" type="text" value="50" label="Number of Cluster"/>
+	</inputs>
+        <outputs>
+                <data format="tabular" name="text_out" type="data" label="Cluster table"/>
+        </outputs>
+
+	<help>
+Clustering of the features in respect to their expression behaviour using a user selected distance metric and a choosen clustering method.
+
+**Inputs**
+
+**Expression Set**
+
+* An R object of the ExpressionSet class that have been serialized using the save command
+
+**Distance method**
+
+* euclidean: Calculate pairwise Euclidean distances
+* pearson: Calculate pairwise Pearson correlational distances
+* spearman:  Calculate pairwise Spearman correlational distances
+* kendall:  Calculate pairwise Kendall's tau correlational distances
+* manhattan: Calculate pairwise Manhattan distances
+* kullback.leibler.discrete: Discrete version of Kullback-Leibler Distance
+* kullback.leibler.continuous: Continuous version of Kullback-Leibler Distance
+* mutual.information.independence: Calculate mutual information distance from independence
+* mutual.information.general: Transformation of mutual information into a generalization of the correlation
+
+**Cluster method**
+
+* single: closely related to the minimal spanning tree; adopts a ‘friends of friends’ clustering strategy
+* complete: finds similar clusters
+* ward: minimum variance method; aims at finding compact, spherical clusters
+* others: aiming for clusters with characteristics somewhere between the single and complete link methods; note however, that methods median and centroid are not leading to a monotone distance measure 
+
+**Number of Cluster**
+
+* the number of resulting clusters
+
+-----
+
+**Outputs**
+
+**Cluster table**
+
+* A table listing cluster membership for the feautures and belonging feature information
+
+	</help>
+</tool>
+
+

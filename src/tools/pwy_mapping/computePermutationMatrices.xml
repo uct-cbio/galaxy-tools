@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<tool name="Compute permutation matrices" id="compPermMats">
+ <description>of fold changes and p-values for gene set enrichment analysis.</description>
+        <command interpreter="Rscript">computePermutationMatrices.R $eset $reps $groupcol $adjmethod $fcmat $pmat</command>
+        <inputs>
+        	<param format="rdata" name="eset" type="data" label="Expression set"/>
+		<param name="reps" size="10" type="text" value="10000" label="Number of permutations"/>
+		<param name="groupcol" size="10" type="text" value="" label="Group column"/>
+		<param name="adjmethod" type="select" label="Multiple testing correction method">
+		<option value="BH" selected="true">Benjamini-Hochberg 1995</option>
+		<option value="bonferroni">Bonferroni</option>
+		<option value="holm">Holm 1979</option>
+		<option value="hochberg">Hochberg 1988</option>
+		<option value="hommel">Hommel 1988</option>
+		<option value="BY">Benjamini-Yekutieli 2001</option>
+		</param>
+	</inputs>
+        <outputs>
+                <data format="rdata" name="fcmat" type="data" label="Fold change permutation matrix"/>
+		<data format="rdata" name="pmat" type="data" label="P-Value permutation matrix"/>
+        </outputs>
+
+	<help>
+Recalculates differential expression analysis by permutation of the samples. The resulting permutation matrices for fold change and p-value can be subsequently used for empiric p-value computation in gene set enrichment analyses.
+
+**Inputs**
+
+**Expression set**
+
+* An RData file containing the gene expression set.
+
+**Number of permutations**
+
+* determines how often the samples are going to be permuted during the computation. Default is 10000. 
+
+**Group column**
+
+* The name of the column in the pData slot of the expression set that stores the group assignment (f.e. affected vs. unaffected).
+
+**Multiple testing correction method**
+
+* bonferroni: traditional conservative adjusting of p-values
+* holm: strong control of family wise error rate using Holm (1979)
+* hochberg: strong control of family wise error rate using Hochberg (1988)
+* hommel: strong control of family wise error rate using Hommel (1988)
+* BH: control of the false discovery rate using Benjamini and Hochberg (1995)
+* BY: control of the false discovery rate using Benjamini and Yekutieli (2001)
+
+-----
+
+**Outputs**
+
+**Fold change permutation matrix**
+
+* An RData object storing the fold changes for all permutations.
+
+**P-Value permutation matrix**
+
+* An RData object storing the p-values for all permutations.
+
+	</help>
+</tool>
+
+

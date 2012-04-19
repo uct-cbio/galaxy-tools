@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<tool name="Test" id="test">
+ <description>for testing purposes.</description>
+        <command interpreter="Rscript">test.R $inp $outp</command>
+        <inputs>
+		<param format="txt" name="inp" type="text" label="Input"/>
+	</inputs>
+        <outputs>
+                <data format="html" name="outp" type="data" label="gsea output"/>
+        </outputs>
+	<help>
+Test!
+	</help>
+</tool>
+
+

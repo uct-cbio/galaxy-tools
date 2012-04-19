@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<tool name="Extract genesets from KEGG pathways" id="extract">
+ <description>for GSEA analysis.</description>
+        <command interpreter="Rscript">extractGenesetsFromPathways.R $pwys $gmt</command>
+        <inputs>
+        	<param format="zip" name="pwys" type="data" label="Zip archive of pathway files"/>		
+	</inputs>
+        <outputs>
+                <data format="tabular" name="gmt" type="data" label="Geneset database in GMT format"/>
+        </outputs>
+
+	<help>
+To perform a gene set enrichment analysis on KEGG pathways it is necessary to build up the geneset database in a format that the GSEA method can read. This tool perform the necessary steps, including the extraction of the participating ENTREZ gene IDs for each pathway and the conversion to GMT format.
+
+**Inputs**
+
+**Zip archive of pathway files**
+
+* A zip compressed archive of pathway xml files in KGML format. The pathways are targeted for enrichment investigation.
+
+-----
+
+**Outputs**
+
+**Geneset database in GMT format**
+
+* The extracted pathway gene sets in a single GMT file.
+	</help>
+</tool>
+
+

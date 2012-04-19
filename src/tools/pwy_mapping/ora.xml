@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<tool name="Overrepresentation analysis (ORA)" id="ora">
+ <description>of differential expressed genes in predefined gene sets.</description>
+        <command interpreter="Rscript">ora.R $eset $pmat $gsdb $grcol $alpha $result</command>
+        <inputs>
+		<param format="rdata" name="eset" type="data" label="Expression set"/>
+                <param format="rdata" name="pmat" type="data" label="P-Value permutation matrix"/>
+        	<param format="tabular" name="gsdb" type="data" label="Gene set database"/>		
+		<param name="grcol" size="10" type="text" value="" label="Group column"/>
+		<param name="alpha" size="10" type="text" value="0.05" label="Significance niveau"/>
+	</inputs>
+        <outputs>
+                <data format="html" name="result" type="data" label="ORA result"/>
+        </outputs>
+
+	<help>
+Implementation of Overrepresentation analysis (ORA) based on subject sampling and a self-contained null hypothesis as it is recommended in Goeman and Buhlmann (Bioinformatics, 2007). The algorithm is known as Tuckey's higher criticism and is shown in Table 4 of the paper.
+
+**Inputs**
+
+**Expression set**
+
+* An RData file containing the gene expression set.
+
+**P-Value permutation matrix**
+
+* A precomputed RData object storing the p-values for all permutations.
+
+**Gene set database**
+
+* A precomputed tabular text file storing all gene sets under investigations.
+
+**Group colum**
+
+* The name of the column in the pData slot of the expression set that stores the group assignment (i.e. affected vs unaffected)
+
+**Alpha**
+
+* The significance niveau that is used for differential expression. Default is 0.05.
+
+-----
+
+**Outputs**
+
+**ORA result**
+
+* The result table of the enrichment analysis showing significance of enrichment for each investigated pathway. 
+
+	</help>
+</tool>
+
+

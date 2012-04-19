@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<tool name="Convert probe eset to gene eset" id="probeEset2geneEset">
+ <description>by summarizing gene expression behavior over all corresponding probes</description>
+        <command interpreter="Rscript">probeEset2geneEset.R $probe_eset $gene_eset $groupcol $adjmethod $distr $volc</command>
+        <inputs>
+        	<param format="rdata" name="probe_eset" type="data" label="Probe expression set"/>
+		<param name="groupcol" size="10" type="text" value="" label="Group column"/>
+		<param name="adjmethod" type="select" label="Multiple testing correction method">
+		<option value="BH" selected="true">Benjamini-Hochberg 1995</option>
+		<option value="bonferroni">Bonferroni</option>
+		<option value="holm">Holm 1979</option>
+		<option value="hochberg">Hochberg 1988</option>
+		<option value="hommel">Hommel 1988</option>
+		<option value="BY">Benjamini-Yekutieli 2001</option>
+		</param>
+	</inputs>
+        <outputs>
+                <data format="rdata" name="gene_eset" type="data" label="Gene expression set"/>
+		<data format="jpg" name="distr" type="Image" label="P-Value distribution"/>
+		<data format="jpg" name="volc" type="Image" label="Volcano plot"/>
+        </outputs>
+
+	<help>
+Reads in expression data at probe (set) level and summarizes gene expression behavior by averaging over all spots that are annotated to a particular gene. A subsequent differential expression analysis at the gene level is automatically performed.
+
+**Inputs**
+
+**Probe expression set**
+
+* An RData file containing the expression set for the probes. The fData slot of the expression set must contain an 'ENTREZ' column that lists for each spot a belonging gene ID.
+
+**Group column**
+
+* The name of the column in the pData slot of the probe expression set that stores the group assignment (f.e. affected vs. unaffected).
+
+**Multiple testing correction method**
+
+* bonferroni: traditional conservative adjusting of p-values
+* holm: strong control of family wise error rate using Holm (1979)
+* hochberg: strong control of family wise error rate using Hochberg (1988)
+* hommel: strong control of family wise error rate using Hommel (1988)
+* BH: control of the false discovery rate using Benjamini and Hochberg (1995)
+* BY: control of the false discovery rate using Benjamini and Yekutieli (2001)
+
+-----
+
+**Outputs**
+
+**Gene expression set**
+
+* An RData object storing the expression set that has been converted to gene level.
+
+**P-Value distribution**
+
+* The histogram of differential expression gene p-values.
+
+**Volcano plot**
+
+* The characteristic plot that shows the relation of fold change and p-value
+
+	</help>
+</tool>
+
+

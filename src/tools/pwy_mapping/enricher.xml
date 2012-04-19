@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<tool name="Enrichment Browser" id="enricher">
+ <description>seamless navigation through aggregated results of set and graph enrichment.</description>
+        <command interpreter="Rscript">enricher.R $gsea $ora $ggea $pw $result</command>
+        <inputs>
+		<param format="html" name="gsea" type="data" label="GSEA result"/>
+        	<param format="html" name="ora" type="data" label="ORA result"/>
+		<param format="html" name="ggea" type="data" label="GGEA result"/>		
+		<param format="html" name="pw" type="data" label="PathWave result"/>		
+	</inputs>
+        <outputs>
+                <data format="html" name="result" type="data" label="Enrichment window"/>
+        </outputs>
+
+	<help>
+Enrichment Browser enables the user explore aggregated results of set and graph enrichment in an extended fashion. The combination of results yields an enhanced confidence in and an advandced understanding of particular regulation processes. The visualization of highlighted submodules and the interactive browsing of these results leads into a new generation of biological pathway analysis.    
+
+**Inputs**
+
+**GSEA result**
+
+* The html output of the GSEA run that has been performed beforehand.
+
+**ORA result**
+
+* The html output of the ORA run that has been performed beforehand.
+
+**GGEA result**
+
+* The html output of the GGEA run that has been performed beforehand.
+
+**PathWave result**
+
+* The html output of the PathWave run that has been performed beforehand.
+
+-----
+
+**Outputs**
+
+**Enrichment Window**
+
+* The result table of the enrichment analysis showing significance of enrichment for each investigated pathway. 
+	</help>
+</tool>
+
+

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<tool name="Gene Set Enrichment Analysis (GSEA)" id="gsea">
+ <description>of differential expressed genes in predefined gene sets.</description>
+        <command interpreter="Rscript">gsea.R $eset $gsdb $grcol $affcd $alpha $perm $result</command>
+        <inputs>
+		<param format="rdata" name="eset" type="data" label="Expression set"/>
+                <param format="tabular" name="gsdb" type="data" label="Gene set database"/>
+		<param name="grcol" size="10" type="text" value="" label="Group column"/>
+		<param name="affcd" size="10" type="text" value="" label="Name of affected condition"/>
+		<param name="alpha" size="10" type="text" value="0.25" label="Significance niveau"/>
+		 <param name="perm" size="10" type="text" value="10000" label="Number of permutations"/>
+	</inputs>
+        <outputs>
+                <data format="html" name="result" type="data" label="GSEA result"/>
+        </outputs>
+
+	<help>
+Gene Set Enrichment Analysis (GSEA) is a major advancement of the basic overrepresentation analysis (ORA) in order to detect significant differentially expressed groups of genes that work together. The key feature of the advancement is that the approach not only investigate the small number of genes which are upon an arbitrary threshold in the calculated differential expression measure per gene, but rather compute enrichment statistics over all genes on the chip. 
+With that also small, but groupwise consistent, expression changes can be detected. See Subrahmanian et al., 2005, for more information. 
+
+**Inputs**
+
+**Expression set**
+
+* An RData file containing the gene expression set.
+
+**Gene set database**
+
+* A precomputed tabular text file storing all gene sets under investigations.
+
+**Group column**
+
+* The name of the column in the pData slot of the expression set that stores the group assignment (f.e. affected vs. unaffected).
+
+**Name of affected condition**
+
+* The name of the condition in the group assignment that discriminates the affected condition from the normal condition (i.e. the condition of interest).
+
+**Alpha**
+
+* The significance niveau that is used for differential expression. Default is 0.05.
+
+**Number of permutations**
+
+* determines how often the samples are going to be permuted during the computation. Default is 10000.
+
+-----
+
+**Outputs**
+
+**GSEA result**
+
+* The result table of the enrichment analysis showing significance of enrichment for each investigated pathway. 
+
+	</help>
+</tool>
+
+

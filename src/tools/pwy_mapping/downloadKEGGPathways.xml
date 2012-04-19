@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<tool name="Download KEGG pathways" id="download">
+ <description>of a specified organism.</description>
+        <command interpreter="Rscript">downloadKEGGPathways.R $org $out</command>
+        <inputs>
+        	<param name="org" type="text" size="3" value="hsa" label="Organism"/>
+	</inputs>
+        <outputs>
+                <data format="zip" name="out" type="data" label="Pathway archive"/>
+        </outputs>
+
+	<help>
+Downloads the current build of KEGG pathway XML files for a particular organism and stores them in a compressed zip archive.
+
+**Inputs**
+
+**Organism**
+
+* Three letter KEGG organism code (e.g. hsa ... homo sapiens)
+
+-----
+
+**Outputs**
+
+**Pathway archive**
+
+* A zip compressed archive of pathway xml files in KGML format.
+	</help>
+</tool>
+
+

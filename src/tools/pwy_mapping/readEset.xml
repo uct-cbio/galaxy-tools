@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<tool name="Read Expression Set" id="readEset">
+ <description>from tab separated text files.</description>
+        <command interpreter="Rscript">readEset.R $exprs $pdata $fdata $groupcol $adjmethod $eset $distr $volc</command>
+        <inputs>
+		<param format="tabular" name="exprs" type="data" label="Expression matrix"/>
+                <param format="tabular" name="pdata" type="data" label="Phenotype data"/>
+        	<param format="tabular" name="fdata" type="data" label="Feature data"/>		
+		<param name="groupcol" size="10" type="text" value="" label="Group column"/>
+		<param name="adjmethod" type="select" label="Multiple testing correction method">
+		<option value="BH" selected="true">Benjamini-Hochberg 1995</option>
+		<option value="bonferroni">Bonferroni</option>
+		<option value="holm">Holm 1979</option>
+		<option value="hochberg">Hochberg 1988</option>
+		<option value="hommel">Hommel 1988</option>
+		<option value="BY">Benjamini-Yekutieli 2001</option>
+		</param>
+	</inputs>
+        <outputs>
+                <data format="rdata" name="eset" type="data" label="Expression set"/>
+		<data format="jpg" name="distr" type="Image" label="P Value Distribution"/>
+		<data format="jpg" name="volc" type="Image" label="Volcano Plot"/>
+        </outputs>
+
+	<help>
+Reads in expression data and corresponding annotation information for samples (i.e. subjects) and features (i.e. genes) from tab separated text files and stores them in an 'Expression Set' data structure.
+
+**Inputs**
+
+**Expression matrix**
+
+* A tab separated text file containing the expression values. The first row has to contain the sample names and the first column the feature names.
+
+**Phenotype data**
+
+* A tab separated text file containing annotation information for the samples. The first row has to contain the annotation variables and the first column the sample names. The sample names in this file should match the sample names of the expression matrix. The annotation variables should contain at least one variable for group assignment.
+
+**Feature data**
+
+* A tab separated text file containing annotation information for the features. The first row has to contain the annotation variables and the first column the feature names. The feature names in this file should match the feature names of the expression matrix. The annotation variables should contain a variable 'ENTREZ' which maps the probe ID to the corresponding gene ID.
+
+**Group column**
+
+* The name of the column in the phenotype data file that stores the group assignment (f.e. affected vs. unaffected).
+
+**Multiple testing correction method**
+
+* bonferroni: traditional conservative adjusting of p-values
+* holm: strong control of family wise error rate using Holm (1979)
+* hochberg: strong control of family wise error rate using Hochberg (1988)
+* hommel: strong control of family wise error rate using Hommel (1988)
+* BH: control of the false discovery rate using Benjamini and Hochberg (1995)
+* BY: control of the false discovery rate using Benjamini and Yekutieli (2001)
+
+-----
+
+**Outputs**
+
+**Expression set**
+
+* An expression set RData object
+
+**P-Value distribution**
+
+* The histogram of differential expression gene p-values.
+
+**Volcano plot**
+
+* The characteristic plot that shows the relation of fold change and p-value
+	</help>
+</tool>
+
+
