@@ -1,6 +1,6 @@
 <tool id="hivdg_get_variants" name="Get variant amino acid positions in comparison to a reference sequence">
 	<description>.</description>
-	<command interpreter="python">variant.py $input $output</command>
+	<command interpreter="python">variants.py $input $output</command>
 	<inputs>
 		<param format="tabular" name="input" type="data" label="Tab delimited alignment file1"/> -->
 	</inputs>
