@@ -86,7 +86,7 @@ for sit in range(len(data)):
 	if len(sited[1])>1:		#do fisher's exact test on aa counts
 		r_fisher_file = os.environ.get("R_FISHER_FILE")
 		r.source(r_fisher_file)
-	#		print data[site][1],data[site][-1]
+		#print sited[1],sited[-1]
 		fisher = r.my_fisher(sited[1],sited[-1])
 #		if fisher['p.value'] < 0.045:
 #			print site, data[site][1], data[site][-1],"fisher pvalue = : ", fisher['p.value'], fisher['p.value']*len(data)
