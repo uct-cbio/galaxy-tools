@@ -67,6 +67,7 @@
       <tool file="hiv_diversity_group/remove_duplicates.xml"/>
       <tool file="hiv_diversity_group/aafreqs.xml"/>
       <tool file="hiv_diversity_group/variants.xml"/>
+      <tool file="hiv_diversity_group/euclidean.xml"/>
    </section>
    
    
