@@ -3,7 +3,16 @@
 	<command interpreter="python">contaminants.py $input_1 $input_2 $output</command>
 	<inputs>
 		<param format="fasta" name="input_1" type="data" label="New sequence alignment fasta file"/>
-		<spec txt="" id="input_2" size="3"/> 
+                <param name="input_2" type="select" label="Gene neme" multiple="true">
+                        <option value="gag">gag</option>
+                        <option value="nef">nef</option>
+                        <option value="pol">pol</option>
+                        <option value="env">env</option>
+                        <option value="tat">tat</option>
+                        <option value="ltr">ltr</option>
+                        <option value="vpu">vpu</option>
+                        <option value="vpr">vpf</option>
+                </param>
 	</inputs>
 	<outputs>
 		<data format="txt" name="output" type="data" label="List of contaminants"/>
