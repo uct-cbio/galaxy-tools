@@ -115,7 +115,7 @@ if(!all((Z==Inf)==FALSE)){
 }
 
 ########### PERMUTATION TEST #########
-permnum=5
+permnum=100
 Zperm=matrix(NA, ncol=ncol(p_con), nrow=permnum)
 for(rep in 1:permnum){
 	random=sample.int(n_tot, n_con)

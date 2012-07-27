@@ -1,4 +1,2 @@
 Sequences with =>98% similarity i.e., Hamming distance <= 0.02, are assumed to be possible contaminants
 
-
-NO POSSIBLE CONTAMINANTS FOUND FOR YOUR NEW SEQUENCE DATA

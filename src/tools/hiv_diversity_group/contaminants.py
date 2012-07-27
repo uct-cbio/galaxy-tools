@@ -63,8 +63,8 @@ outfile.write("Sequences with =>98% similarity i.e., Hamming distance <= 0.02, a
 
 ##OPEN Gdrive and search for the appropriate gene files and calculate hamming distance.. output possible contaminats in above outfile
 
-gdrive = os.environ.get("ALL_SEQUENCES_PATH")
-wholegenome = os.environ.get("WHOLEGENOMES_PATH")
+gdrive = os.environ.get("ALL_SEQUENCES_PATH") + "/"
+wholegenome = os.environ.get("WHOLEGENOMES_PATH") + "/"
 
 ###first get data from whole genome
 wlist = os.walk(wholegenome)

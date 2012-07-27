@@ -3,21 +3,26 @@
 	<command interpreter="python">contaminants.py $input_1 $input_2 $output</command>
 	<inputs>
 		<param format="fasta" name="input_1" type="data" label="New sequence alignment fasta file"/>
-                <param name="input_2" type="select" label="Gene neme" multiple="true">
+                <param name="input_2" type="select" label="Gene name" multiple="true">
                         <option value="gag">gag</option>
                         <option value="nef">nef</option>
                         <option value="pol">pol</option>
                         <option value="env">env</option>
                         <option value="tat">tat</option>
-                        <option value="ltr">ltr</option>
+                        <option value="vif">ltr</option>
                         <option value="vpu">vpu</option>
                         <option value="vpr">vpf</option>
+			<option value="rev">vpf</option>
                 </param>
 	</inputs>
 	<outputs>
 		<data format="txt" name="output" type="data" label="List of contaminants"/>
 
 	</outputs>
+	<test>
+		<param name="input_1" value="contamtest.fas" />
+		<output name="output" value="contaminantsOUT.txt" />
+	</test>
 
 	<help>
 Compares newly generated sequences with existing ones located on the gdrive in order to identify possible contaminants. A Hamming distance less than 2% is assumed to indicate contamination. 
@@ -26,7 +31,7 @@ Compares newly generated sequences with existing ones located on the gdrive in o
 
 **Fasta sequence alignment**
 
-**Gene name either of gag nef pol env pol tat ltr vpu vpr**
+**Gene name either of gag nef pol env pol tat rev vif vpu vpr**
 
 -----
 

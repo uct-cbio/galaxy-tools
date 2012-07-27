@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool id="AminoAcid_EuclideanDistance" name="Euclidean-based amino acid distances">
 	<description>to compare amino acid proportions between 2 alignments</description>
-	<command interpreter="Rscript">euclidean_dist.R $input_1 $input_2 $output $plot</command>
+	<command interpreter="Rscript">euclidean_dist.R $input_1 $input_2 $output $plot $perm</command>
 	<inputs>
 		<param format="fasta" name="input_1" type="data" label="fasta dna alignment with all sequences"/> -->
 		<param format="tabular" name="input_2" type="data" label="sequence names for the control/one comparison group"/> -->
