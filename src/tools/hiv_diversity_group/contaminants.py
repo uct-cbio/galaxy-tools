@@ -122,8 +122,10 @@ if os.path.isdir(gdrive+genename):
 	#		print title
 			seq = records[title]
 			seq2 = seq.strip("-")	#remove trailing gaps both ends
+			seq2 = seq2.strip("~")
 			for newt in newrecords:
 				newseq = newrecords[newt].strip("-")
+				newseq = newseq.strip("~")
 				clustaltempfile = str(oldtitles.index(title)+1)+"_"+str(titlelist.index(newt)+1)+"clustaltemp.fas"
 				clustf = open(clustaltempfile,"w")
 				clustf.write(">"+newt+str(titlelist.index(newt)+1)+"\n"+newseq+"\n")	#added index to avoid same names with old data
@@ -134,22 +136,33 @@ if os.path.isdir(gdrive+genename):
 				clustl = "clustalw2 "+clustaltempfile+" -outfile="+clustoutname
 				os.system(clustl)
 		#open clustaw output file and get the seqs
-			#clustoutname = clustaltempfile[:-3]+"aln"
 		
 				pairs = open(clustoutname,"r")
-				prs = pairs.readlines()[-3:-1]
-				s1 = prs[0].strip()            #results in last 3 lines
-				seqdata1 = filter(lambda ss:ss!="",s1.strip().split(" "))
-				seqd1 = seqdata1[-1] ; seqn1 = seqdata1[0]
-				s2 = prs[-1].strip()              #results in last 3 lines
-				seqdata2 = filter(lambda ss:ss!="",s2.strip().split(" "))
-				seqd2 = seqdata2[-1] ; seqn2 = seqdata1[0]
+				prs = pairs.readlines()
+				seqn1 = prs[3].strip().split(" ")[0].strip()	#get newseq name
+				seqn2 = prs[4].strip().split(" ")[0].strip()	#get oldseq name
+				seqd1raw = ""
+				for i in range(3,len(prs)-2,4):
+					seqdata1 = prs[i].strip().split(" ")[-1].strip()
+					seqd1raw = seqd1raw+seqdata1
+				#strip trailing gaps from aligning process, i.e. in the new seq if shorter than existing, genome cases
+				seqd1 = seqd1raw.strip("-")		
+				sspan = re.search(seqd1,seqd1raw).span()
+
+				seqd2raw = ""
+				for j in range(4,len(prs)-1,4):
+					seqdata2 = prs[j].strip().split(" ")[-1].strip() 
+					seqd2raw = seqd2raw+seqdata2
+				seqd2 = seqd2raw[sspan[0]:sspan[-1]]
+				
+				
 #				#get hamming distance and print those with distance <= 30% i.e with >70 similarity	
 				diff = hamdist(seqd1, seqd2)
 				if diff <= 0.02:
 					hammings.append(diff)
 #					print "Possible contamination: Hamming distance (difference) = ", hamdist(seqd1, seqd2)
-					outfile.write("\nThe new sequence "+newt+" has hamming distance = "+str(diff)+" from sequence "+title+" in "+rfile+"\n")	
+					outfile.write("\nThe new sequence "+newt+" has hamming distance = "+str(diff)+" from sequence "+title+" in "+rfile+"\n")
+#					outfile.write(seqd1+"\n"+seqd2+"\n\n")
 #				#delete the clustal temp input and output files
 				rmcommand = "rm "+clustaltempfile+" "+clustoutname+" "+clustaltempfile[:-3]+"dnd"
 				os.system(rmcommand)
