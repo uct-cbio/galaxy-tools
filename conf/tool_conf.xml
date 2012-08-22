@@ -68,6 +68,7 @@
       <tool file="hiv_diversity_group/aafreqs.xml"/>
       <tool file="hiv_diversity_group/variants.xml"/>
       <tool file="hiv_diversity_group/euclidean.xml"/>
+      <tool file="hiv_diversity_group/unzip_combine.xml"/>
    </section>
    
    
