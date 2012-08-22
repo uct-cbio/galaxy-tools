@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #check for matching seqs in the g-drive folder using pairwise comparisons
 #to run example:: python contaminants.py contamtest.fas gag contaminantsOUT.txt
-import os, sys, re
+import os, sys, re, commands
 
 ###function to read fasta files##################
 def fastarecords(file):         #file should be opened
@@ -82,7 +82,9 @@ for wl in wlist:
 			elif wlines[0].strip().startswith(">"):
 				wgfiles.append(wpath)
 
+#print wgfiles 
 #if folder.endswith(genename)... then open
+nucs = ["A","C","T","G","-","*","~"]
 if os.path.isdir(gdrive+genename):
 	rrunfiles = []                  #list of fastafiles to analyse
 	gfolderlist = os.listdir(gdrive+genename)
@@ -111,62 +113,81 @@ if os.path.isdir(gdrive+genename):
 	####also include the whole_genome files########
 	runfiles = rrunfiles+ wgfiles
 		
-	#######compare data and calculate hamming distance##########
+	#######compare data USING 'stretcher' pairwise alignment method and calculate hamming distance##########
 	for rfile in runfiles:
+		delfiles = []		#files to delete after running program
 #		print rfile
-		fff = open(rfile,"r")
-		records = fastarecords(fff)
-		oldtitles = []				#lsit of seqnames
-		for title in records:
-			oldtitles.append(title)
+		if os.path.isfile(rfile):
+			fff = open(rfile,"r")
+			records = fastarecords(fff)
+			oldtitles = []				#lsit of seqnames
+			for title in records:
+				oldtitles.append(title)
 	#		print title
-			seq = records[title]
-			seq2 = seq.strip("-")	#remove trailing gaps both ends
-			seq2 = seq2.strip("~")
-			for newt in newrecords:
-				newseq = newrecords[newt].strip("-")
-				newseq = newseq.strip("~")
-				clustaltempfile = str(oldtitles.index(title)+1)+"_"+str(titlelist.index(newt)+1)+"clustaltemp.fas"
-				clustf = open(clustaltempfile,"w")
-				clustf.write(">"+newt+str(titlelist.index(newt)+1)+"\n"+newseq+"\n")	#added index to avoid same names with old data
-				clustf.write(">"+title+"\n"+seq2+"\n")
-				clustf.close()
-		#run clustalw on created tempfile
-				clustoutname = clustaltempfile[:-3]+"aln"
-				clustl = "clustalw2 "+clustaltempfile+" -outfile="+clustoutname
-				os.system(clustl)
+				seq = records[title]
+				seq2 = seq.strip("-")	#remove trailing gaps both ends
+				seq2 = seq2.strip("~")
+				ress = []		#check if nucleotide seq
+				for aa in seq2:
+					if aa not in nucs:
+						ress.append(aa)
+				if len(ress)>2:
+					pass	#protein seq
+				else:
+					for newt in newrecords:
+						newseq = newrecords[newt].strip("-")
+						newseq = newseq.strip("~")
+						seq1file = "stretchrr_"+str(titlelist.index(newt)+1)+"sq1.fas"	#new seq
+						seq1f = open(seq1file,"w")
+						seq1f.write(">"+newt+str(titlelist.index(newt)+1)+"\n"+newseq)	#added index to avoid same names with old data
+						seq1f.close()
+						seq2file = "stretchrr_"+str(oldtitles.index(title)+1)+"sq2.fas"		#galaxy seq
+						seq2f = open(seq2file,"w")
+						seq2f.write(">"+title+"\n"+seq2)
+						seq2f.close()
+		#run emboss' stretcher on created tempfile
+						outfname = "stretchrr_"+str(oldtitles.index(title)+1)+"_"+str(titlelist.index(newt)+1)+".fas"
+						stretchr = "/home/galaxy/software/EMBOSS-6.0.1/install/bin/stretcher -asequence "+seq1file+" -bsequence "+seq2file+" -outfile "+outfname
+#						os.system(stretchr)
+						outs = commands.getoutput(stretchr)
 		#open clustaw output file and get the seqs
-		
-				pairs = open(clustoutname,"r")
-				prs = pairs.readlines()
-				seqn1 = prs[3].strip().split(" ")[0].strip()	#get newseq name
-				seqn2 = prs[4].strip().split(" ")[0].strip()	#get oldseq name
-				seqd1raw = ""
-				for i in range(3,len(prs)-2,4):
-					seqdata1 = prs[i].strip().split(" ")[-1].strip()
-					seqd1raw = seqd1raw+seqdata1
+						if os.path.isfile(outfname):
+							pairs = open(outfname,"r")
+							prs = pairs.readlines()
+							seqn1 = prs[30].strip().split(" ")[0].strip()	#get newseq name
+							seqn2 = prs[32].strip().split(" ")[0].strip()	#get oldseq name
+							seqd1raw = ""
+							for i in range(30,len(prs)-2,6):
+								seqdata1 = prs[i].strip().split(" ")[-1].strip()
+								seqd1raw = seqd1raw+seqdata1
 				#strip trailing gaps from aligning process, i.e. in the new seq if shorter than existing, genome cases
-				seqd1 = seqd1raw.strip("-")		
-				sspan = re.search(seqd1,seqd1raw).span()
-
-				seqd2raw = ""
-				for j in range(4,len(prs)-1,4):
-					seqdata2 = prs[j].strip().split(" ")[-1].strip() 
-					seqd2raw = seqd2raw+seqdata2
-				seqd2 = seqd2raw[sspan[0]:sspan[-1]]
-				
+							seqd1 = seqd1raw[1:].strip("-")			#strtcher always alings 1st residues, exclude if followed by trail of gaps
+							sspan = re.search(seqd1,seqd1raw).span()
+	
+							seqd2raw = ""
+							for j in range(32,len(prs)-2,6):
+								seqdata2 = prs[j].strip().split(" ")[-1].strip() 
+								seqd2raw = seqd2raw+seqdata2
+							seqd2 = seqd2raw[sspan[0]:sspan[-1]]
+					
 				
 #				#get hamming distance and print those with distance <= 30% i.e with >70 similarity	
-				diff = hamdist(seqd1, seqd2)
-				if diff <= 0.02:
-					hammings.append(diff)
+							diff = hamdist(seqd1, seqd2)
+							if diff <= 0.02:
+								hammings.append(diff)
 #					print "Possible contamination: Hamming distance (difference) = ", hamdist(seqd1, seqd2)
-					outfile.write("\nThe new sequence "+newt+" has hamming distance = "+str(diff)+" from sequence "+title+" in "+rfile+"\n")
+								outfile.write("\nThe new sequence "+newt+" has hamming distance = "+str(diff)+" from sequence "+title+" in "+rfile+"\n")
 #					outfile.write(seqd1+"\n"+seqd2+"\n\n")
-#				#delete the clustal temp input and output files
-				rmcommand = "rm "+clustaltempfile+" "+clustoutname+" "+clustaltempfile[:-3]+"dnd"
-				os.system(rmcommand)
-				
+							pairs.close()
+				#delete the clustal temp input and output files
+#				rmcommand = "rm "+seq1file+" "+seq2file+" "+outfname
+							rmcommand = "rm stretchrr_*.fas"
+							os.system(rmcommand)
+						else:
+							pass	#leave and do the next pair
+		else:
+			pass		#leave and read the next file
+
 ##if no possible contminats
 if len(hammings)==0:
 	outfile.write("\nNO POSSIBLE CONTAMINANTS FOUND FOR YOUR NEW SEQUENCE DATA")

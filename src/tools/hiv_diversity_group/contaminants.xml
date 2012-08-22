@@ -9,10 +9,10 @@
                         <option value="pol">pol</option>
                         <option value="env">env</option>
                         <option value="tat">tat</option>
-                        <option value="vif">ltr</option>
+                        <option value="vif">vif</option>
                         <option value="vpu">vpu</option>
-                        <option value="vpr">vpf</option>
-			<option value="rev">vpf</option>
+                        <option value="vpr">vpr</option>
+			<option value="rev">rev</option>
                 </param>
 	</inputs>
 	<outputs>
