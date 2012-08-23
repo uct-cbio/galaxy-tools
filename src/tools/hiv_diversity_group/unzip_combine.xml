@@ -1,5 +1,5 @@
 <tool id="unzip_and_concatenate_files" name="Unzip and concatenate">
-	<description>.</description>
+	<description>fasta files</description>
 	<command interpreter="python">unzip_combine.py $input $output</command>
 	<inputs>
 		<param format="zip" name="input" type="data" label="*.zip archive with fasta files"/> -->
