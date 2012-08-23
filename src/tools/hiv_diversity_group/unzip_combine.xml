@@ -2,15 +2,11 @@
 	<description>.</description>
 	<command interpreter="python">unzip_combine.py $input $output</command>
 	<inputs>
-		<param format="zip" name="input" type="data" label="*.zip archive with fasta files"/>
+		<param format="zip" name="input" type="data" label="*.zip archive with fasta files"/> -->
 	</inputs>
 	<outputs>
 		<data format="fasta" name="output" type="data" label="All_sequences_file"/>
 	</outputs>
-	<test>
-		<param name="input" value="jinnynew.zip" />
-		<output name="output" value="jinnynew_ALLsequences.fas" />
-	</test>
 
 	<help>
 Decompresses a zip archive and concatenates all fasta files into one alignment 
