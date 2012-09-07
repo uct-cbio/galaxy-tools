@@ -15,6 +15,7 @@ Decompresses a zip archive and concatenates all fasta files into one alignment
 **Inputs**
 
 A zip archive
+TO UPLOAD YOUR ZIP ARCHIVE use: 'Upload File' under the 'UCT CBIO Tools' tab and select the 'zip archive' File format.
 
 -----
 
