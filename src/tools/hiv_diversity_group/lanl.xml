@@ -2,8 +2,8 @@
 	<description>based on LANL reactive and optimal epitopes</description>
 	<command interpreter="python">matchLANL.py $input_1 $input_2 $input_3 $output_1 $output_2</command>
 	<inputs>
-		<param format="tabular" name="input_1" type="data" label="tab delimited amino acid alignment"/> -->
-		<param format="tabular" name="input_2" type="data" label="tab-delimited host HLA genotypes"/> -->
+		<param format="tabular" name="input_1" type="data" label="tab delimited amino acid alignment"/>
+		<param format="tabular" name="input_2" type="data" label="tab-delimited host HLA genotypes"/>
 		<param name="input_3" type="select" label="Gene name" multiple="true">
 			<option value="Gag">gag</option>
                         <option value="Nef">nef</option>
