@@ -16,17 +16,7 @@
 	</outputs>
 
 	<help>
-Searches for LANL epitopes from the first sequence in the alignment (e.g., could be a vaccine_insert or reference). An epitope is assumed if the reference sequence peptide has a 70% minimum identity to a LANL epitope. Predictions are restricted to user-provided HLA genotypes. For each sequence in the rest of the alignment (sequence names should correspond to host HLA genotypes given), the mean similarity to the reference sequence at the predicted epitopes specific to the host genotypes is calculated using the HIVbetween amino acid similarity matrix. Outputs from different alignments can be compared using non-parametric analogs of the t-test. 
-
-**Inputs**
-
-Tab-delimited amino acid alignment
-HLA genotypes corresponding to the sequences in the alignment
-Select the HIV gene for your alignment 
-
-**Outputs**	
-
-A text file with mean epitope similarity scores for each sequence
-A text file with a list of predicted epitope sites for each HLA genotype
+XXXXXXXXXXXXXX
 	</help>
 </tool>
+
