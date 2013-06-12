@@ -1,4 +1,4 @@
-<tool id="LANL_EpitopePrediction" name="Epitope Prediction & Similarity">
+<tool id="LANL_EpitopePrediction" name="Epitope Prediction and Similarity">
 	<description>based on LANL reactive and optimal epitopes</description>
 	<command interpreter="python">matchLANL.py $input_1 $input_2 $input_3 $output_1 $output_2</command>
 	<inputs>
