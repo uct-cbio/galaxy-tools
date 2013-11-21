@@ -1,7 +1,6 @@
 <tool id="basecall" name="Call bases and get quality values">
 	<description>from chromatograph sequences.</description>
-	<command interpreter="perl">basecall.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -ab1seq $ab1_zipped_input -seq
-		$fasta_output -qual $quality_scores_output -scf $scf_output -phred $phred_output</command>
+	<command interpreter="perl">basecall.pl -project "${GALAXY_DATA_INDEX_DIR}/uct_cbio/history" -ab1seq $ab1_zipped_input -seq $fasta_output -qual $quality_scores_output -scf $scf_output -phred $phred_output</command>
 	<inputs>
 		<param format="data" name="ab1_zipped_input" type="data" label="Zipped AB1 trace files" />
 		<!--  Need to change format back to format="zip" at a later stage. Issue: zip files do not show up as an option when running a workflow -->
