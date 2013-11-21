@@ -126,7 +126,7 @@ Directory structure:
     chdir chdir $dirs{"ab1"};
     print "Unzipping...\n";
     &Utils::LogUtils::log_info( $log_fd, "Unzipping..." );
-    system "unzip $ab1_zipped_input";
+    system "unzip -qq $ab1_zipped_input";
     print "Done.\n";
     &Utils::LogUtils::log_info( $log_fd, "Done" );
 
