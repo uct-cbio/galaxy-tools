@@ -94,7 +94,7 @@ def main():
     os.system("mv " + base_dir + "/blast2go.dat" + " " + blast2go_dat_file)    
     os.system("mv " + base_dir + "/blast2go.annot" + " " + blastgo_annotation_file)    
     tmp_zip = base_dir + "/tmp.zip" # Galaxy work around need to create a temporary zip archive and move to the output data set
-    os.system("zip -j " + tmp_zip + " " + base_dir + "/*.png")
+    os.system("zip -qqj " + tmp_zip + " " + base_dir + "/*.png")
     os.system("mv " + tmp_zip + " " + blastgo_image_file)
     
     # Delete program working directory if indicated

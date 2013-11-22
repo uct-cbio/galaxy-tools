@@ -114,7 +114,7 @@ def main():
     # Unzip cluster fasta
     cluster_seq_dir = base_dir + "/cluster_fasta"
     os.mkdir(cluster_seq_dir)
-    os.system("unzip " + cluster_seq_file + " -d " + cluster_seq_dir + " > /dev/null")
+    os.system("unzip -qq " + cluster_seq_file + " -d " + cluster_seq_dir + " > /dev/null")
     # Force all extensions to .fsa , quick and dirty
     for seq_file in os.listdir(cluster_seq_dir):
         new_seq_file = algorithm_dir + "/" + seq_file.split(".")[0] + ".fsa"
@@ -125,7 +125,7 @@ def main():
         # Unzip cluster qual scores
         cluster_qual_dir = base_dir + "/cluster_qual"
         os.mkdir(cluster_qual_dir)
-        os.system("unzip " + cluster_qual_file + " -d " + cluster_qual_dir + " > /dev/null")
+        os.system("unzip -qq " + cluster_qual_file + " -d " + cluster_qual_dir + " > /dev/null")
         # Force all extensions to .fsa.qual (format is needed for both phrap and cap3), quick and dirty
         for qual_file in os.listdir(cluster_qual_dir):
             new_qual_file = algorithm_dir + "/" + qual_file.split(".")[0] + ".fsa.qual"
@@ -217,10 +217,10 @@ def main():
             os.system ("touch " + singleton_qual_file)
         
 #    os.system("zip -j " + contig_ace_file + " " + contig_ace_dir + "/*.ace")
-    os.system("zip -j " + tmp_zip + " " + contig_ace_dir + "/*.ace")
+    os.system("zip -qqj " + tmp_zip + " " + contig_ace_dir + "/*.ace")
     os.system("mv " + tmp_zip + " " + contig_ace_file)
 #    os.system("zip -j " + contig_image_file + " " + contig_image_dir + "/*.png")
-    os.system("zip -j " + tmp_zip + " " + contig_image_dir + "/*.png")
+    os.system("zip -qqj " + tmp_zip + " " + contig_image_dir + "/*.png")
     os.system("mv " + tmp_zip + " " + contig_image_file)
     
     # Delete program working directory if indicated
