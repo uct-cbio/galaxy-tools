@@ -121,11 +121,11 @@ def main():
     
     if(options.qual_file and options.cluster_qual_file):
 #        os.system ("zip -j " + cluster_qual_file + " " + cluster_qual_dir + "/*")
-        os.system ("zip -j " + tmp_zip + " " + cluster_qual_dir + "/*")
+        os.system ("zip -jqq " + tmp_zip + " " + cluster_qual_dir + "/*")
         os.system("mv " + tmp_zip + " " + cluster_qual_file)
         
 #    os.system("zip -j " + cluster_seq_file + " " + cluster_seq_dir + "/*")
-    os.system("zip -j " + tmp_zip + " " + cluster_seq_dir + "/*")
+    os.system("zip -jqq " + tmp_zip + " " + cluster_seq_dir + "/*")
     os.system("mv " + tmp_zip + " " + cluster_seq_file)
     
     # Delete program working directory if indicated
